@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cz.tul.ppj.hynekvaclavsvobodny</groupId>
+    <artifactId>PPJSemestralProject</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.4</version>
+    </parent>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <properties>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.profiles.active>prod</spring.profiles.active>
+        <spring.config.additional-location>optional:classpath:/local.properties</spring.config.additional-location>
+    </properties>
+
+    <profiles>
+
+        <profile>
+            <id>devel</id>
+            <properties>
+                <spring.profiles.active>devel</spring.profiles.active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <arguments>
+                        <argument>--spring.profiles.active=${spring.profiles.active}</argument>
+                        <argument>--spring.config.additional-location=${spring.config.additional-location}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
