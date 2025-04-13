@@ -40,3 +40,7 @@ build/
 ### Local configuration ###
 local.properties
 local-*.properties
+
+
+### Development database ###
+develdb/
