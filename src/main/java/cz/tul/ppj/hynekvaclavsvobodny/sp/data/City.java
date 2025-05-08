@@ -1,0 +1,73 @@
+package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
+
+import java.util.Objects;
+
+public class City extends NumberIdDataModel {
+    private String name;
+    private Country country;
+
+    public City() {
+        super();
+    }
+
+    public City(Integer id) {
+        super(id);
+    }
+
+    public City(Integer id, String name, Country country) {
+        this(id);
+        this.setName(name);
+        this.setCountry(country);
+    }
+
+    public City(String name, Country country) {
+        this(null, name, country);
+    }
+
+    @Override
+    public void validate() {
+        Objects.requireNonNull(getName(), "'name' must not be null.");
+        Objects.requireNonNull(getCountry(), "'country' must not be null.");
+        Objects.requireNonNull(getCountry_id(), "'country_id' must not be null.");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name != null && name.isEmpty()) {
+            throw new IllegalArgumentException("The argument 'name' must not be empty");
+        }
+
+        this.name = name;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public Integer getCountry_id() {
+        if (country == null) {
+            return null;
+        }
+
+        return country.getId();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof City city)) return false;
+        if (!super.equals(o)) return false;
+        return Objects.equals(getName(), city.getName()) && Objects.equals(getCountry(), city.getCountry());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getName(), getCountry());
+    }
+}
