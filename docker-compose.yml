@@ -12,5 +12,5 @@ services:
       MYSQL_DATABASE: PPJSemestralProject
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
     volumes:
-      - ./src/main/resources/schema-mysql.sql:/docker-entrypoint-initdb.d/00-schema.sql:ro
+      - ./src/main/resources/schema-mysql.sql:/docker-entrypoint-initdb.d/00-schema-hsqldb.sql:ro
       #- ./src/main/resources/data-mysql.sql:/docker-entrypoint-initdb.d/10-data.sql:ro
