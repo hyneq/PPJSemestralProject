@@ -84,12 +84,12 @@ public class Measurement implements IDataModel {
         return tempFeelsLike;
     }
 
-    public void setTemp_feels_like(Float temp_feels_Like) {
-        this.tempFeelsLike = temp_feels_Like;
+    public void setTempFeelsLike(Float tempFeelsLike) {
+        this.tempFeelsLike = tempFeelsLike;
     }
 
-    public void setTemp_feels_like(Double temp_feels_Like) {
-        setTemp_feels_like(temp_feels_Like.floatValue());
+    public void setTempFeelsLike(Double tempFeelsLike) {
+        setTempFeelsLike(tempFeelsLike.floatValue());
     }
 
     public Float getTempMin() {
@@ -156,8 +156,8 @@ public class Measurement implements IDataModel {
         this.windSpeed = windSpeed;
     }
 
-    public void setWind_speed(Double wind_speed) {
-        setWindSpeed(wind_speed.floatValue());
+    public void setWindSpeed(Double windSpeed) {
+        setWindSpeed(windSpeed.floatValue());
     }
 
     public Float getWindGust() {
@@ -170,8 +170,8 @@ public class Measurement implements IDataModel {
         this.windGust = windGust;
     }
 
-    public void setWind_gust(Double temp_max) {
-        setWindGust(temp_max.floatValue());
+    public void setWindGust(Double tempMax) {
+        setWindGust(tempMax.floatValue());
     }
 
     public Integer getWindDirection() {
