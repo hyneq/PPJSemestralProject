@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
-public class MeasurementService {
+public class WeatherService {
 
     @Autowired
     MeasurementRepository measurementRepository;
@@ -41,27 +41,4 @@ public class MeasurementService {
         return updateMeasurements(cityRepository.getById(cityId));
     }
 
-    public List<Measurement> getMeasurements(City city) {
-        return measurementRepository.getByCity(city);
-    }
-
-    public List<Measurement> getMeasurements(int cityId) {
-        return getMeasurements(cityRepository.getById(cityId));
-    }
-
-    public Measurement getLatestMeasurement(City city) {
-        return measurementRepository.findTopByCityOrderByDatetimeDesc(city);
-    }
-
-    public Measurement getLatestMeasurement(int cityId) {
-        return measurementRepository.findTopByCityOrderByDatetimeDesc(cityRepository.getById(cityId));
-    }
-
-    public List<MeasurementAggretagion> getDailyAverage(City city) {
-        return measurementRepository.findDailyAverage(city);
-    }
-
-    public List<MeasurementAggretagion> getDailyAverage(int cityId) {
-        return getDailyAverage(cityRepository.getById(cityId));
-    }
 }
