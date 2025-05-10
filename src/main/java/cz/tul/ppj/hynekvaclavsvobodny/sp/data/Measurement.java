@@ -47,6 +47,9 @@ public class Measurement implements IDataModel {
         Objects.requireNonNull(getDatetime(), "'datetime' must not be null.");
     }
 
+    public MeasurementId getId() {
+        return id;
+    }
 
     public City getCity() {
         return id.getCity();
