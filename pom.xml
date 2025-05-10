@@ -83,7 +83,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.profiles.active>prod</spring.profiles.active>
         <spring.profiles.active.test>test</spring.profiles.active.test>
-        <spring.config.additional-location>optional:classpath:/local.properties</spring.config.additional-location>
+        <spring.config.additional-location>optional:classpath:/local.properties,optional:file:./local.properties</spring.config.additional-location>
     </properties>
 
     <profiles>
