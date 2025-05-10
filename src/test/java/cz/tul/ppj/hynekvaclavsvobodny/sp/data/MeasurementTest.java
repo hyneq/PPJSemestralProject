@@ -75,7 +75,7 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
     @ParameterizedTest
     @FieldSource("tempsValid")
     public void testTempFeelsLikeValid(Float temp) {
-        obj.setTemp_feels_like(temp);
+        obj.setTempFeelsLike(temp);
 
         assertEquals(temp, obj.getTempFeelsLike());
     }

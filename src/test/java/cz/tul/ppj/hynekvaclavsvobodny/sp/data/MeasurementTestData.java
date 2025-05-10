@@ -25,13 +25,13 @@ public class MeasurementTestData extends DataModelTestData<Measurement> {
         m.setDatetime(Instant.parse("2024-05-21T02:30:25Z"));
 
         m.setTemp(10.05);
-        m.setTemp_feels_like(10.05);
+        m.setTempFeelsLike(10.05);
         m.setTemp_min(10.05);
         m.setTemp_max(10.05);
         m.setPressure(1024);
         m.setHumidity(80);
-        m.setWind_speed(100.0);
-        m.setWind_gust(120.0);
+        m.setWindSpeed(100.0);
+        m.setWindGust(120.0);
         m.setWindDirection(95);
 
         m.setClouds(5);
