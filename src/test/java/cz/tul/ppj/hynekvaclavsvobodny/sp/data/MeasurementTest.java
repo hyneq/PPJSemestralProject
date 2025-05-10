@@ -22,19 +22,19 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
         assertNull(measurement.getDatetime());
 
         assertNull(measurement.getTemp());
-        assertNull(measurement.gettemp_feels_like());
-        assertNull(measurement.getTemp_min());
-        assertNull(measurement.getTemp_max());
+        assertNull(measurement.getTempFeelsLike());
+        assertNull(measurement.getTempMin());
+        assertNull(measurement.getTempMax());
         assertNull(measurement.getPressure());
         assertNull(measurement.getHumidity());
 
-        assertNull(measurement.getWind_speed());
-        assertNull(measurement.getWind_direction());
-        assertNull(measurement.getWind_gust());
+        assertNull(measurement.getWindSpeed());
+        assertNull(measurement.getWindDirection());
+        assertNull(measurement.getWindGust());
 
         assertNull(measurement.getClouds());
 
-        assertNull(measurement.getCondition_id());
+        assertNull(measurement.getConditionId());
     }
 
     @Test
@@ -77,23 +77,23 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
     public void testTempFeelsLikeValid(Float temp) {
         obj.setTemp_feels_like(temp);
 
-        assertEquals(temp, obj.gettemp_feels_like());
+        assertEquals(temp, obj.getTempFeelsLike());
     }
 
     @ParameterizedTest
     @FieldSource("tempsValid")
     public void testTempMinValid(Float temp) {
-        obj.setTemp_min(temp);
+        obj.setTempMin(temp);
 
-        assertEquals(temp, obj.getTemp_min());
+        assertEquals(temp, obj.getTempMin());
     }
 
     @ParameterizedTest
     @FieldSource("tempsValid")
     public void testTempMaxValid(Float temp) {
-        obj.setTemp_max(temp);
+        obj.setTempMax(temp);
 
-        assertEquals(temp, obj.getTemp_max());
+        assertEquals(temp, obj.getTempMax());
     }
 
     private static final List<Integer> pressuresValid = Arrays.asList(0, 100, 987, 1034, 890, 1500, 2000);
@@ -139,17 +139,17 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
     @ParameterizedTest
     @FieldSource("windSpeedsValid")
     public void testWindSpeedValid(Float windSpeed) {
-        obj.setWind_speed(windSpeed);
+        obj.setWindSpeed(windSpeed);
 
-        assertEquals(windSpeed, obj.getWind_speed());
+        assertEquals(windSpeed, obj.getWindSpeed());
     }
 
     @ParameterizedTest
     @FieldSource("windSpeedsValid")
     public void testWindGustValid(Float windGust) {
-        obj.setWind_gust(windGust);
+        obj.setWindGust(windGust);
 
-        assertEquals(windGust, obj.getWind_gust());
+        assertEquals(windGust, obj.getWindGust());
     }
 
     private static final List<Float> windSpeedsInvalid = Arrays.asList((float)-0.1, (float)-5, (float)-12, (float)-50.586);
@@ -158,14 +158,14 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
     @FieldSource("windSpeedsInvalid")
     public void testWindSpeedInvalid(Float windSpeed) {
         assertThrows(IllegalArgumentException.class,
-                () -> obj.setWind_speed(windSpeed));
+                () -> obj.setWindSpeed(windSpeed));
     }
 
     @ParameterizedTest
     @FieldSource("windSpeedsInvalid")
     public void testWindGustInvalid(Float windGust) {
         assertThrows(IllegalArgumentException.class,
-                () -> obj.setWind_gust(windGust));
+                () -> obj.setWindGust(windGust));
     }
 
     private static final List<Integer> windDirectionsValid = Arrays.asList(0, 45, 90, 135, 180, 225, 270, 315);
@@ -173,9 +173,9 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
     @ParameterizedTest
     @FieldSource("windDirectionsValid")
     public void testWindDirectionValid(Integer windDirection) {
-        obj.setWind_direction(windDirection);
+        obj.setWindDirection(windDirection);
 
-        assertEquals(windDirection, obj.getWind_direction());
+        assertEquals(windDirection, obj.getWindDirection());
     }
 
     private static final List<Integer> windDirectionsInvalid = Arrays.asList(360, -1, -90, -270, -360);
@@ -184,7 +184,7 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
     @FieldSource("windDirectionsInvalid")
     public void testWindDirectionInvalid(Integer windDirection) {
         assertThrows(IllegalArgumentException.class,
-                () -> obj.setWind_direction(windDirection));
+                () -> obj.setWindDirection(windDirection));
     }
 
     private static final List<Integer> cloudsValid = Arrays.asList(0, 30, 50, 70, 100);

@@ -1,9 +1,15 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class NumberIdDataModel implements IDataModel {
-    private Integer id = null;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     public NumberIdDataModel() {}
 

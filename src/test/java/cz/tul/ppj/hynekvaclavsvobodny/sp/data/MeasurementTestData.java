@@ -1,5 +1,6 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
+import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ import java.util.stream.Stream;
 public class MeasurementTestData extends DataModelTestData<Measurement> {
 
     @Autowired
-    CityDao cityDao;
+    CityRepository cityRepository;
 
     @Override
     public Measurement emptyInstance() {
@@ -20,7 +21,7 @@ public class MeasurementTestData extends DataModelTestData<Measurement> {
     public Measurement getFullInstance() {
         Measurement m = new Measurement();
 
-        m.setCity(cityDao.get(0));
+        m.setCity(cityRepository.getById(1));
         m.setDatetime(Instant.parse("2024-05-21T02:30:25Z"));
 
         m.setTemp(10.05);
@@ -31,10 +32,10 @@ public class MeasurementTestData extends DataModelTestData<Measurement> {
         m.setHumidity(80);
         m.setWind_speed(100.0);
         m.setWind_gust(120.0);
-        m.setWind_direction(95);
+        m.setWindDirection(95);
 
         m.setClouds(5);
-        m.setCondition_id(10);
+        m.setConditionId(10);
 
         return m;
     }
@@ -43,8 +44,8 @@ public class MeasurementTestData extends DataModelTestData<Measurement> {
     public Stream<Measurement> objsValid() {
 
         return Stream.of(
-                new Measurement(cityDao.get(1), Instant.EPOCH),
-                new Measurement(cityDao.getByName("Liberec"), Instant.parse("2025-01-21T21:40:00Z")),
+                new Measurement(cityRepository.getById(1), Instant.EPOCH),
+                new Measurement(cityRepository.getByName("Liberec").get(0), Instant.parse("2025-01-21T21:40:00Z")),
                 getFullInstance()
         );
     }
@@ -58,7 +59,7 @@ public class MeasurementTestData extends DataModelTestData<Measurement> {
                         new Measurement(null, null),
                         new Measurement(null, Instant.EPOCH),
                         new Measurement(new City(null), Instant.EPOCH),
-                        new Measurement(cityDao.get(0), null)
+                        new Measurement(cityRepository.getById(0), null)
                 )
         );
     }

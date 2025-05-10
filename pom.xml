@@ -29,7 +29,14 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -62,7 +69,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
-                        <spring.profiles.active>test</spring.profiles.active>
+                        <spring.profiles.active>${spring.profiles.active.test}</spring.profiles.active>
                         <spring.config.additional-location>${spring.config.additional-location}</spring.config.additional-location>
                     </systemPropertyVariables>
                 </configuration>
@@ -75,6 +82,7 @@
         <maven.compiler.target>23</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.profiles.active>prod</spring.profiles.active>
+        <spring.profiles.active.test>test</spring.profiles.active.test>
         <spring.config.additional-location>optional:classpath:/local.properties</spring.config.additional-location>
     </properties>
 
@@ -91,6 +99,13 @@
             <id>prod</id>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>test-prod</id>
+            <properties>
+                <spring.profiles.active.test>prod</spring.profiles.active.test>
             </properties>
         </profile>
 

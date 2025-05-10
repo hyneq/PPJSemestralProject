@@ -1,10 +1,20 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
-import java.util.Objects;
+import jakarta.persistence.*;
 
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "Country")
 public class Country extends NumberIdDataModel {
-    private String code = null;
-    private String name = null;
+
+    @Column(unique = true)
+    private String code;
+    private String name;
+
+    @OneToMany(mappedBy = "country")
+    private Set<City> cities;
 
     public Country() {
         super();
@@ -26,6 +36,7 @@ public class Country extends NumberIdDataModel {
         this.setName(name);
     }
 
+    @PrePersist
     @Override
     public void validate() {
         Objects.requireNonNull(getCode(), "'code' must not be null.");
