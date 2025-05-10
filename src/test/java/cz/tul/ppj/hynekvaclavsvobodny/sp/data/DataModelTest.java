@@ -43,7 +43,7 @@ public abstract class DataModelTest<T extends IDataModel, S extends DataModelTes
 
     @ParameterizedTest
     @MethodSource("objsValid")
-    public void testValdiateValid(T obj) {
+    public void testValidateValid(T obj) {
         obj.validate();
     }
 

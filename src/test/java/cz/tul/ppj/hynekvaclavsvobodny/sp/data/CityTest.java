@@ -19,7 +19,7 @@ public class CityTest extends NumberIdDataModelTest<City, CityTestData> {
 
         assertNull(city.getName());
         assertNull(city.getCountry());
-        assertNull(city.getCountry_id());
+        assertNull(city.getCountryId());
     }
 
     private static final List<String> namesValid = Arrays.asList(null, "Liberec", "Berlin", "London");

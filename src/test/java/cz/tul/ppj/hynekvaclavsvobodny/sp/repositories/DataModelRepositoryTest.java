@@ -1,5 +1,7 @@
-package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
+package cz.tul.ppj.hynekvaclavsvobodny.sp.repositories;
 
+import cz.tul.ppj.hynekvaclavsvobodny.sp.data.DataModelTestData;
+import cz.tul.ppj.hynekvaclavsvobodny.sp.data.IDataModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional
-public abstract class DaoTest<T extends Dao<S>, S extends IDataModel, V extends DataModelTestData<S>> {
+public abstract class DataModelRepositoryTest<T extends DataModelRepository<S, ID>, S extends IDataModel, ID extends Serializable, V extends DataModelTestData<S>> {
 
     protected S obj;
 
@@ -24,7 +27,7 @@ public abstract class DaoTest<T extends Dao<S>, S extends IDataModel, V extends 
     protected V data;
 
     @Autowired
-    protected T dao;
+    protected T repository;
 
     @BeforeEach
     public void initialize() {
@@ -32,8 +35,8 @@ public abstract class DaoTest<T extends Dao<S>, S extends IDataModel, V extends 
     }
 
     @Test
-    public void testDaoLoads() {
-        assertNotNull(dao);
+    public void testRepositoryLoads() {
+        assertNotNull(repository);
     }
 
     private Stream<S> objsValid() {
@@ -42,19 +45,19 @@ public abstract class DaoTest<T extends Dao<S>, S extends IDataModel, V extends 
 
     @ParameterizedTest
     @MethodSource("objsValid")
-    public void testCreateValid(S obj) {
-        dao.create(obj);
-    }
+        public void testSaveValid(S obj) {
+            repository.save(obj);
+        }
 
-    private Stream<S> objsInvalid() {
-        return data.objsInvalid();
-    }
+        private Stream<S> objsInvalid() {
+            return data.objsInvalid();
+        }
 
-    @ParameterizedTest
-    @MethodSource("objsInvalid")
-    public void testCreateInvalid(S obj) {
-        assertThrows(Exception.class,
-                () -> dao.create(obj));
+        @ParameterizedTest
+        @MethodSource("objsInvalid")
+        public void testSaveInvalid(S obj) {
+            assertThrows(Exception.class,
+                    () -> repository.save(obj));
     }
 
 }

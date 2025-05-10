@@ -1,9 +1,17 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "City")
 public class City extends NumberIdDataModel {
+
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
     private Country country;
 
     public City() {
@@ -24,11 +32,12 @@ public class City extends NumberIdDataModel {
         this(null, name, country);
     }
 
+    @PrePersist
     @Override
     public void validate() {
         Objects.requireNonNull(getName(), "'name' must not be null.");
         Objects.requireNonNull(getCountry(), "'country' must not be null.");
-        Objects.requireNonNull(getCountry_id(), "'country_id' must not be null.");
+        Objects.requireNonNull(getCountryId(), "'country_id' must not be null.");
     }
 
     public String getName() {
@@ -51,7 +60,7 @@ public class City extends NumberIdDataModel {
         this.country = country;
     }
 
-    public Integer getCountry_id() {
+    public Integer getCountryId() {
         if (country == null) {
             return null;
         }
