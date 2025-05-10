@@ -22,9 +22,13 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
         return getById(new Measurement.MeasurementId(city, datetime));
     }
 
-    void deleteByCity(City city);
+    default Measurement deleteById(City city, Instant datetime) {
+        deleteById(new Measurement.MeasurementId(city, datetime));
+    }
 
     List<Measurement> getByCity(City city);
+
+    void deleteByCity(City city);
 
     Measurement findFirstByCityOrderByDatetimeDesc(City city);
 

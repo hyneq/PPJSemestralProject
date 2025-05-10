@@ -12,8 +12,12 @@ public interface CountryRepository extends NumberIdDataModelRepository<Country> 
 
     Optional<Country> findByCode(String code);
 
+    void deleteByCode(String code);
+
     Country getByName(String name);
 
     Optional<Country> findByName(String name);
+
+    void deleteByName(String name);
 
 }
