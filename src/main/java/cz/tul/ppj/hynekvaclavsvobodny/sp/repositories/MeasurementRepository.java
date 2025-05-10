@@ -22,11 +22,15 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
         return getById(new Measurement.MeasurementId(city, datetime));
     }
 
-    void deleteByCity(City id);
+    void deleteByCity(City city);
 
-    List<Measurement> getByCity(City id);
+    List<Measurement> getByCity(City city);
 
-    Measurement findTopByCityOrderByDatetimeDesc(City city);
+    Measurement findFirstByCityOrderByDatetimeDesc(City city);
+
+    default Measurement getLatestByCity(City city) {
+        return findFirstByCityOrderByDatetimeDesc(city);
+    }
 
     @Query("SELECT NEW cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax)," +
