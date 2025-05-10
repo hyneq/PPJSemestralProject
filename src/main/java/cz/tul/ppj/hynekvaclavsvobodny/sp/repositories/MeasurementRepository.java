@@ -51,11 +51,11 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
     List<MeasurementAggretagion> findWeeklyAverage(@Param("city") City city);
 
     @Query("SELECT NEW cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
-            "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
-            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)) " +
-            "FROM Measurement m " +
-            "WHERE m.city = :city " +
-            "GROUP BY FUNCTION('YEAR', m.datetime), FUNCTION('WEEK', m.datetime) / 2 " +
+            "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax)," +
+            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust))" +
+            "FROM Measurement m" +
+            "WHERE m.city = :city" +
+            "GROUP BY FUNCTION('YEAR', m.datetime), FUNCTION('WEEK', m.datetime) / 2" +
             "ORDER BY FUNCTION('YEAR', m.datetime) DESC, FUNCTION('WEEK', m.datetime) / 2 DESC")
     List<MeasurementAggretagion> findTwoWeeksAverage(@Param("city") City city);
 }
