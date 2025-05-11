@@ -1,6 +1,7 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.services;
 
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.IDataModel;
+import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.IdMismatchException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectAlreadyExistsException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectDoesNotExistException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.DataModelRepository;
@@ -45,8 +46,14 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
         }
     }
 
-    public void update(E obj) {
-        if (exists(obj)) {
+    public void update(E obj, ID id) {
+        if (obj.getId() == null) {
+            obj.setId(id);
+        } else if (!obj.getId().equals(id)) {
+            throw new IdMismatchException(obj);
+        }
+
+        if (!exists(obj)) {
             throw new ObjectDoesNotExistException(obj);
         }
 
@@ -56,6 +63,10 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
             // TODO log
             throw new IllegalArgumentException("Object (%s) save failed");
         }
+    }
+
+    public void update(E obj) {
+        update(obj, null);
     }
 
     public void delete(E obj) {
