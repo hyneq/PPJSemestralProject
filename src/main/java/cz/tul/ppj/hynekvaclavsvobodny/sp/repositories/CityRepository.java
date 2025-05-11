@@ -5,11 +5,14 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.data.Country;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CityRepository extends NumberIdDataModelRepository<City> {
 
     List<City> getByCountry(Country country);
+
+    Optional<City> findByName(String name);
 
     City getByName(String name);
 

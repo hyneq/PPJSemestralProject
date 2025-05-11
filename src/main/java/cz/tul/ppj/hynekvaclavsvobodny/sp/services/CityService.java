@@ -6,6 +6,7 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CityService extends NumberIdDataModelService<CityRepository, City> {
 
@@ -16,28 +17,20 @@ public class CityService extends NumberIdDataModelService<CityRepository, City> 
         super("modelName");
     }
 
-    public City getByName(String name) {
-        return repository.getByName(name);
+    public Optional<City> getByName(String name) {
+        return repository.findByName(name);
     }
 
     public List<City> getByCountry(Country country) {
         return repository.getByCountry(country);
     }
 
-    public List<City> getByCountryCode(String countryCode) {
-        Country country = countryService.getByCode(countryCode);
-        if (country == null) {
-            return null;
-        }
-        return getByCountry(country);
+    public Optional<List<City>> getByCountryCode(String countryCode) {
+        return countryService.getByCode(countryCode).map(this::getByCountry);
     }
 
-    public List<City> getByCountryName(String countryName) {
-        Country country = countryService.getByName(countryName);
-        if (country == null) {
-            return null;
-        }
-        return getByCountry(country);
+    public Optional<List<City>> getByCountryName(String countryName) {
+        return countryService.getByName(countryName).map(this::getByCountry);
     }
 
     public void deleteByName(String name) {
@@ -49,19 +42,9 @@ public class CityService extends NumberIdDataModelService<CityRepository, City> 
     }
 
     public void deleteByCountryCode(String countryCode) {
-        Country country = countryService.getByCode(countryCode);
-        if (country == null) {
-            return;
-        }
-
-        deleteByCountry(country);
+        countryService.getByCode(countryCode).ifPresent(this::deleteByCountry);
     }
     public void deleteByCountryName(String countryName) {
-        Country country = countryService.getByName(countryName);
-        if (country == null) {
-            return;
-        }
-
-        deleteByCountry(country);
+        countryService.getByName(countryName).ifPresent(this::deleteByCountry);
     }
 }
