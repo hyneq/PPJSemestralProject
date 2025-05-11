@@ -33,13 +33,14 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
         return repository.existsById(obj.getId());
     }
 
-    public void create(E obj) {
+    public ID create(E obj) {
         if (exists(obj)) {
             throw new ObjectAlreadyExistsException(obj);
         }
 
         try {
             repository.save(obj);
+            return obj.getId();
         } catch (Exception e) {
             // TODO log
             throw new IllegalArgumentException("Object (%s) save failed");
