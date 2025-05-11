@@ -7,6 +7,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.io.Serializable;
 
 @NoRepositoryBean
-public interface DataModelRepository<T extends IDataModel, ID extends Serializable> extends CrudRepository<T, ID> {
-    T getById(ID id);
+public interface DataModelRepository<E extends IDataModel<ID>, ID extends Serializable> extends CrudRepository<E, ID> {
+    E getById(ID id);
 }

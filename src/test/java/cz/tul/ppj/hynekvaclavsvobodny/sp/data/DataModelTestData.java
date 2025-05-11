@@ -2,15 +2,15 @@ package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
 import java.util.stream.Stream;
 
-public abstract class DataModelTestData<T extends IDataModel> {
+public abstract class DataModelTestData<E extends IDataModel<?>> {
 
-    public abstract T emptyInstance();
+    public abstract E emptyInstance();
 
-    public Stream<T> objsValid() {
+    public Stream<E> objsValid() {
         return Stream.of();
     }
 
-    public Stream<T> objsInvalid() {
+    public Stream<E> objsInvalid() {
         return Stream.of(emptyInstance());
     }
 

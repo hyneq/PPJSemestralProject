@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public abstract class NumberIdDataModelRepositoryTest<
-        T extends NumberIdDataModelRepository<S>, S extends NumberIdDataModel, V extends NumberIdDataModelTestData<S>
-        >  extends DataModelRepositoryTest<T, S, Integer, V> {
+        R extends NumberIdDataModelRepository<E>, E extends NumberIdDataModel, T extends NumberIdDataModelTestData<E>
+        >  extends DataModelRepositoryTest<R, E, Integer, T> {
 
     @ParameterizedTest
     @MethodSource("objsValid")
-    public void testSaveLoadById(S obj) {
+    public void testSaveLoadById(E obj) {
         assertNull(obj.getId());
         repository.save(obj);
         assertNotNull(obj.getId());
 
-        Optional<S> retrieved = repository.findById(obj.getId());
+        Optional<E> retrieved = repository.findById(obj.getId());
 
         assertTrue(retrieved.isPresent());
 

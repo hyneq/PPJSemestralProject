@@ -19,15 +19,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional
-public abstract class DataModelRepositoryTest<T extends DataModelRepository<S, ID>, S extends IDataModel, ID extends Serializable, V extends DataModelTestData<S>> {
+public abstract class DataModelRepositoryTest<R extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable, T extends DataModelTestData<E>> {
 
-    protected S obj;
-
-    @Autowired
-    protected V data;
+    protected E obj;
 
     @Autowired
-    protected T repository;
+    protected T data;
+
+    @Autowired
+    protected R repository;
 
     @BeforeEach
     public void initialize() {
@@ -39,23 +39,23 @@ public abstract class DataModelRepositoryTest<T extends DataModelRepository<S, I
         assertNotNull(repository);
     }
 
-    private Stream<S> objsValid() {
+    private Stream<E> objsValid() {
         return data.objsValid();
     }
 
     @ParameterizedTest
     @MethodSource("objsValid")
-        public void testSaveValid(S obj) {
+        public void testSaveValid(E obj) {
             repository.save(obj);
         }
 
-        private Stream<S> objsInvalid() {
+        private Stream<E> objsInvalid() {
             return data.objsInvalid();
         }
 
         @ParameterizedTest
         @MethodSource("objsInvalid")
-        public void testSaveInvalid(S obj) {
+        public void testSaveInvalid(E obj) {
             assertThrows(Exception.class,
                     () -> repository.save(obj));
     }
