@@ -13,4 +13,8 @@ public interface CityRepository extends NumberIdDataModelRepository<City> {
 
     List<City> getByName(String name);
 
+    void deleteByCountry(Country country);
+
+    void deleteByName(String name);
+
 }
