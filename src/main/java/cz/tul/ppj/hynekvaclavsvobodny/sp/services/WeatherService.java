@@ -27,7 +27,7 @@ public class WeatherService {
         measurementRepository.deleteByCity(city);
 
         Instant to = Instant.now();
-        Instant from = to.minus(14, ChronoUnit.DAYS);
+        Instant from = to.minus(2, ChronoUnit.WEEKS);
 
         List<Measurement> measurements = openWeatherMapApiService.getMeasurements(city, from, to);
 

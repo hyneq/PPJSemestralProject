@@ -26,15 +26,13 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
         deleteById(new Measurement.MeasurementId(city, datetime));
     }
 
-    List<Measurement> getByCity(City city);
+    List<Measurement> getByCity(City cit);
 
     void deleteByCity(City city);
 
     Measurement findByCityOrderByDatetimeDesc(City city);
 
-    default Measurement getLatestByCity(City city) {
-        return findByCityOrderByDatetimeDesc(city);
-    }
+    List<Measurement> findByCityAndDatetimeBetween(City city, Instant from, Instant to);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
@@ -43,7 +41,7 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
             "WHERE m.id.city = :city " +
             "GROUP BY CAST(m.datetime AS date) " +
             "ORDER BY CAST(m.datetime AS date) DESC")
-    List<MeasurementAggregation> findDailyAverage(@Param("city") City city);
+    MeasurementAggregation findDailyAverage(@Param("city") City city);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
@@ -52,7 +50,7 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
             "WHERE m.id.city = :city " +
             "GROUP BY FUNCTION('YEAR', m.datetime), FUNCTION('WEEK', m.datetime) " +
             "ORDER BY FUNCTION('YEAR', m.datetime) DESC, FUNCTION('WEEK', m.datetime) DESC ")
-    List<MeasurementAggregation> findWeeklyAverage(@Param("city") City city);
+    MeasurementAggregation findWeeklyAverage(@Param("city") City city);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
@@ -61,5 +59,5 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
             "WHERE m.id.city = :city " +
             "GROUP BY FUNCTION('YEAR', m.datetime), FUNCTION('WEEK', m.datetime) / 2 " +
             "ORDER BY FUNCTION('YEAR', m.datetime) DESC, FUNCTION('WEEK', m.datetime) / 2 DESC")
-    List<MeasurementAggregation> findTwoWeeksAverage(@Param("city") City city);
+    MeasurementAggregation findTwoWeeksAverage(@Param("city") City city);
 }

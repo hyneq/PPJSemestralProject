@@ -45,7 +45,7 @@ public class MeasurementTestData extends DataModelTestData<Measurement> {
 
         return Stream.of(
                 new Measurement(cityRepository.getById(1), Instant.EPOCH),
-                new Measurement(cityRepository.getByName("Liberec").get(0), Instant.parse("2025-01-21T21:40:00Z")),
+                new Measurement(cityRepository.getByName("Liberec"), Instant.parse("2025-01-21T21:40:00Z")),
                 getFullInstance()
         );
     }
