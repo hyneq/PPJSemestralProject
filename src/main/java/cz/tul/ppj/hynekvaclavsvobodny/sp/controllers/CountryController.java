@@ -1,6 +1,7 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.controllers;
 
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.Country;
+import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.CountryRepository;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class CountryController {
 
     @Autowired
-    NumberIdCrudDelegate<CountryService, Country> crudDelegate;
+    CountryCrudDelegate crudDelegate;
 
     @Autowired
     CountryService service;

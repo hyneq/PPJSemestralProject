@@ -3,6 +3,7 @@ package cz.tul.ppj.hynekvaclavsvobodny.sp.controllers;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.IDataModel;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectAlreadyExistsException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectDoesNotExistException;
+import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.DataModelRepository;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.services.DataModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
-@Component
-public class CrudDelegate<S extends DataModelService<?,E,ID>, E extends IDataModel<ID>, ID extends Serializable> {
+public class CrudDelegate<S extends DataModelService<R,E,ID>, R extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable> {
 
     @Autowired
     protected S service;
