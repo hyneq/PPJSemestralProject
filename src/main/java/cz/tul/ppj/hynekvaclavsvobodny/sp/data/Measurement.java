@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 
-public class Measurement implements IDataModel {
+public class Measurement implements IDataModel<Measurement.MeasurementId> {
 
     @EmbeddedId
     private final MeasurementId id;
@@ -47,6 +47,10 @@ public class Measurement implements IDataModel {
         Objects.requireNonNull(getDatetime(), "'datetime' must not be null.");
     }
 
+    @Override
+    public MeasurementId getId() {
+        return id;
+    }
 
     public City getCity() {
         return id.getCity();
