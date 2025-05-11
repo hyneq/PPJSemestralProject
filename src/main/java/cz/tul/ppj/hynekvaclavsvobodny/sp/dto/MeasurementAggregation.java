@@ -1,6 +1,6 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.dto;
 
-public class MeasurementAggretagion {
+public class MeasurementAggregation {
     private float temp;
     private float tempFeelsLike;
     private float tempMin;
@@ -10,7 +10,7 @@ public class MeasurementAggretagion {
     private float windSpeed;
     private float windGust;
 
-    public MeasurementAggretagion(float temp, float tempFeelsLike, float tempMin, float tempMax, int pressure, int humidity, float windSpeed, float windGust) {
+    public MeasurementAggregation(float temp, float tempFeelsLike, float tempMin, float tempMax, int pressure, int humidity, float windSpeed, float windGust) {
         this.temp = temp;
         this.tempFeelsLike = tempFeelsLike;
         this.tempMin = tempMin;
