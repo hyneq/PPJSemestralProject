@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Measurement implements IDataModel<Measurement.MeasurementId> {
 
     @EmbeddedId
-    private final MeasurementId id;
+    private MeasurementId id;
 
     private Float temp;
 
@@ -29,14 +29,16 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
 
     private Integer conditionId;
 
+    public Measurement(MeasurementId id) {
+        this.setId(id);
+    }
+
     public Measurement() {
-        this.id = new MeasurementId();
+        this(new MeasurementId());
     }
 
     public Measurement(City city, Instant datetime) {
-        this();
-        this.setCity(city);
-        this.setDatetime(datetime);
+        this(new MeasurementId(city, datetime));
     }
 
     @PrePersist
@@ -50,6 +52,14 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
     @Override
     public MeasurementId getId() {
         return id;
+    }
+
+    @Override
+    public void setId(MeasurementId id) {
+        if (id == null) {
+            throw new IllegalArgumentException("'id' must not be null.");
+        }
+        this.id = id;
     }
 
     public City getCity() {

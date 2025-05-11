@@ -1,12 +1,17 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Stream;
 
 
-public abstract class NumberIdDataModelTestData<E extends NumberIdDataModel> extends DataModelTestData<E> {
+public abstract class NumberIdDataModelTestData<E extends NumberIdDataModel> extends DataModelTestData<E, Integer> {
 
-    List<Integer> idsValid = Arrays.asList(null, 0, 1, 3, 12, 12345);
+    @Override
+    public Stream<Integer> idsValid() {
+        return Stream.of(null, 0, 1, 3, 12, 12345);
+    }
 
-    List<Integer> idsInvalid = Arrays.asList(-1, -2, -3, -120, -12345);
+    @Override
+    public Stream<Integer> idsInvalid() {
+        return Stream.of(-1, -2, -3, -120, -12345);
+    }
 }

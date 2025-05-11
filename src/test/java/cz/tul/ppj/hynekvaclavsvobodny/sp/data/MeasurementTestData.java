@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.stream.Stream;
 
 @Component
-public class MeasurementTestData extends DataModelTestData<Measurement> {
+public class MeasurementTestData extends DataModelTestData<Measurement, Measurement.MeasurementId> {
 
     @Autowired
     CityRepository cityRepository;
@@ -62,5 +62,21 @@ public class MeasurementTestData extends DataModelTestData<Measurement> {
                         new Measurement(cityRepository.getById(0), null)
                 )
         );
+    }
+
+    @Override
+    public Stream<Measurement.MeasurementId> idsValid() {
+        return Stream.of(
+                new Measurement.MeasurementId(cityRepository.getById(0), Instant.EPOCH),
+                new Measurement.MeasurementId(new City(null), Instant.EPOCH),
+                new Measurement.MeasurementId(null, Instant.EPOCH),
+                new Measurement.MeasurementId(null, null)
+        );
+
+    }
+
+    @Override
+    public Stream<Measurement.MeasurementId> idsInvalid() {
+        return Stream.empty();
     }
 }
