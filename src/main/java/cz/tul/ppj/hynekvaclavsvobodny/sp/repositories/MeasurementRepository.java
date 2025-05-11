@@ -30,7 +30,7 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
 
     void deleteByCity(City city);
 
-    Measurement findByCityOrderByDatetimeDesc(City city);
+    Optional<Measurement> findByCityOrderByDatetimeDesc(City city);
 
     List<Measurement> findByCityAndDatetimeBetween(City city, Instant from, Instant to);
 
@@ -41,7 +41,7 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
             "WHERE m.id.city = :city " +
             "GROUP BY CAST(m.datetime AS date) " +
             "ORDER BY CAST(m.datetime AS date) DESC")
-    MeasurementAggregation findDailyAverage(@Param("city") City city);
+    Optional<MeasurementAggregation> findDailyAverage(@Param("city") City city);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
@@ -50,7 +50,7 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
             "WHERE m.id.city = :city " +
             "GROUP BY FUNCTION('YEAR', m.datetime), FUNCTION('WEEK', m.datetime) " +
             "ORDER BY FUNCTION('YEAR', m.datetime) DESC, FUNCTION('WEEK', m.datetime) DESC ")
-    MeasurementAggregation findWeeklyAverage(@Param("city") City city);
+    Optional<MeasurementAggregation> findWeeklyAverage(@Param("city") City city);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
@@ -59,5 +59,5 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
             "WHERE m.id.city = :city " +
             "GROUP BY FUNCTION('YEAR', m.datetime), FUNCTION('WEEK', m.datetime) / 2 " +
             "ORDER BY FUNCTION('YEAR', m.datetime) DESC, FUNCTION('WEEK', m.datetime) / 2 DESC")
-    MeasurementAggregation findTwoWeeksAverage(@Param("city") City city);
+    Optional<MeasurementAggregation> findTwoWeeksAverage(@Param("city") City city);
 }

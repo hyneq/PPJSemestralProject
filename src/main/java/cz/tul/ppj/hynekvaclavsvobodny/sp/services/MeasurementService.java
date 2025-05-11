@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 public class MeasurementService extends DataModelService<MeasurementRepository, Measurement, Measurement.MeasurementId> {
 
@@ -19,20 +20,20 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         super("measurement");
     }
 
-    public Measurement getById(City city, Instant datetime) {
-        return repository.getById(city, datetime);
+    public Optional<Measurement> getById(City city, Instant datetime) {
+        return repository.findById(city, datetime);
     }
 
     public List<Measurement> getByCity(City city) {
         return repository.getByCity(city);
     }
 
-    public List<Measurement> getByCity(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return null;
-        }
-        return getByCity(city);
+    public Optional<List<Measurement>> getByCityId(Integer cityId) {
+        return cityService.getById(cityId).map(this::getByCity);
+    }
+
+    public Optional<List<Measurement>> getByCityName(String cityName) {
+        return cityService.getByName(cityName).map(this::getByCity);
     }
 
     public void deleteById(City city, Instant datetime) {
@@ -43,24 +44,16 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         repository.deleteByCity(city);
     }
 
-    public void deleteByCity(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return;
-        }
-        deleteByCity(city);
+    public void deleteByCityName(String cityName) {
+        cityService.getByName(cityName).ifPresent(this::deleteByCity);
     }
 
-    public Measurement getLatestMeasurement(City city) {
+    public Optional<Measurement> getLatestMeasurement(City city) {
         return repository.findByCityOrderByDatetimeDesc(city);
     }
 
-    public Measurement getLatestMeasurement(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return null;
-        }
-        return getLatestMeasurement(city);
+    public Optional<Measurement> getLatestMeasurementByCityName(String cityName) {
+        return cityService.getByName(cityName).flatMap(this::getLatestMeasurement);
     }
 
     public List<Measurement> getLastDayMeasurements(City city) {
@@ -69,24 +62,24 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return repository.findByCityAndDatetimeBetween(city, dayAgo, now);
     }
 
-    public List<Measurement> getLastDayMeasurements(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return null;
-        }
-        return getLastDayMeasurements(city);
+    public Optional<List<Measurement>> getLastDayMeasurementsByCityId(Integer cityId) {
+        return cityService.getById(cityId).map(this::getLastDayMeasurements);
     }
 
-    public MeasurementAggregation getLastDayAverage(City city) {
+    public Optional<List<Measurement>> getLastDayMeasurementsByCityName(String cityName) {
+        return cityService.getByName(cityName).map(this::getLastDayMeasurements);
+    }
+
+    public Optional<MeasurementAggregation> getLastDayAverage(City city) {
         return repository.findDailyAverage(city);
     }
 
-    public MeasurementAggregation getLastDayAverage(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return null;
-        }
-        return getLastDayAverage(city);
+    public Optional<MeasurementAggregation> getLastDayAverageByCityId(Integer cityId) {
+        return cityService.getById(cityId).flatMap(this::getLastDayAverage);
+    }
+
+    public Optional<MeasurementAggregation> getLastDayAverageByCityName(String cityName) {
+        return cityService.getByName(cityName).flatMap(this::getLastDayAverage);
     }
 
     public List<Measurement> getLastWeekMeasurements(City city) {
@@ -95,24 +88,24 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return repository.findByCityAndDatetimeBetween(city, weekAgo, now);
     }
 
-    public List<Measurement> getLastWeekMeasurements(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return null;
-        }
-        return getLastWeekMeasurements(city);
+    public Optional<List<Measurement>> getLastWeekMeasurementsByCityId(Integer cityId) {
+        return cityService.getById(cityId).map(this::getLastWeekMeasurements);
     }
 
-    public MeasurementAggregation getLastWeekAverage(City city) {
+    public Optional<List<Measurement>> getLastWeekMeasurementsByCityName(String cityName) {
+        return cityService.getByName(cityName).map(this::getLastWeekMeasurements);
+    }
+
+    public Optional<MeasurementAggregation> getLastWeekAverage(City city) {
         return repository.findWeeklyAverage(city);
     }
 
-    public MeasurementAggregation getLastWeekAverage(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return null;
-        }
-        return getLastWeekAverage(city);
+    public Optional<MeasurementAggregation> getLastWeekAverageByCityId(Integer cityId) {
+        return cityService.getById(cityId).flatMap(this::getLastWeekAverage);
+    }
+
+    public Optional<MeasurementAggregation> getLastWeekAverageByCityName(String cityName) {
+        return cityService.getByName(cityName).flatMap(this::getLastWeekAverage);
     }
 
     public List<Measurement> getLastTwoWeeksMeasurements(City city) {
@@ -121,24 +114,24 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return repository.findByCityAndDatetimeBetween(city, weekAgo, now);
     }
 
-    public List<Measurement> getLastTwoWeeksMeasurements(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return null;
-        }
-        return getLastTwoWeeksMeasurements(city);
+    public Optional<List<Measurement>> getLastTwoWeeksMeasurementsByCityId(Integer cityId) {
+        return cityService.getById(cityId).map(this::getLastTwoWeeksMeasurements);
     }
 
-    public MeasurementAggregation getLastTwoWeeksAverage(City city) {
+    public Optional<List<Measurement>> getLastTwoWeeksMeasurementsByCityName(String cityName) {
+        return cityService.getByName(cityName).map(this::getLastTwoWeeksMeasurements);
+    }
+
+    public Optional<MeasurementAggregation> getLastTwoWeeksAverage(City city) {
         return repository.findTwoWeeksAverage(city);
     }
 
-    public MeasurementAggregation getLastTwoWeeksAverage(String cityName) {
-        City city = cityService.getByName(cityName);
-        if (city == null) {
-            return null;
-        }
-        return getLastTwoWeeksAverage(city);
+    public Optional<MeasurementAggregation> getLastTwoWeeksAverageByCityId(Integer cityId) {
+        return cityService.getById(cityId).flatMap(this::getLastTwoWeeksAverage);
+    }
+
+    public Optional<MeasurementAggregation> getLastTwoWeeksAverageByCityName(String cityName) {
+        return cityService.getByName(cityName).flatMap(this::getLastTwoWeeksAverage);
     }
 
 }

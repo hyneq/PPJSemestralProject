@@ -5,7 +5,7 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.DataModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Optional;
 
 public abstract class DataModelService<T extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable> {
 
@@ -20,6 +20,10 @@ public abstract class DataModelService<T extends DataModelRepository<E, ID>, E e
 
     public Iterable<E> getAll() {
         return repository.findAll();
+    }
+
+    public Optional<E> getById(ID id) {
+        return repository.findById(id);
     }
 
     public boolean exists(E obj) {
