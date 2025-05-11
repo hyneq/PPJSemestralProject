@@ -1,6 +1,8 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.services;
 
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.IDataModel;
+import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectAlreadyExistsException;
+import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectDoesNotExistException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.DataModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,7 +34,7 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
 
     public void create(E obj) {
         if (exists(obj)) {
-            throw new IllegalArgumentException(String.format("Object (%s) already exists in the database", modelName));
+            throw new ObjectAlreadyExistsException(obj);
         }
 
         try {
@@ -44,8 +46,8 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
     }
 
     public void update(E obj) {
-        if (!exists(obj)) {
-            throw new IllegalArgumentException(String.format("Object (%s) does not exist in the database, cannot update.", modelName));
+        if (exists(obj)) {
+            throw new ObjectDoesNotExistException(obj);
         }
 
         try {
