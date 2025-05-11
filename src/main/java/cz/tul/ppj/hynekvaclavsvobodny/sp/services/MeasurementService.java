@@ -24,6 +24,10 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return repository.findById(city, datetime);
     }
 
+    public Optional<Measurement> getById(Integer cityId, Instant datetime) {
+        return cityService.getById(cityId).flatMap(city -> getById(city, datetime));
+    }
+
     public List<Measurement> getByCity(City city) {
         return repository.getByCity(city);
     }
@@ -36,8 +40,20 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return cityService.getByName(cityName).map(this::getByCity);
     }
 
+    public void update(Measurement obj, City city, Instant datetime) {
+        update(obj, new Measurement.MeasurementId(city, datetime));
+    }
+
+    public void update(Measurement obj, Integer cityId, Instant datetime) {
+        cityService.getById(cityId).ifPresent(city -> update(obj, city, datetime));
+    }
+
     public void deleteById(City city, Instant datetime) {
         repository.deleteById(city, datetime);
+    }
+
+    public void deleteById(Integer cityId, Instant datetime) {
+        cityService.getById(cityId).ifPresent(city -> deleteById(city, datetime));
     }
 
     public void deleteByCity(City city) {
@@ -50,6 +66,10 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
 
     public Optional<Measurement> getLatestMeasurement(City city) {
         return repository.findByCityOrderByDatetimeDesc(city);
+    }
+
+    public Optional<Measurement> getLatestMeasurementByCityId(Integer cityId) {
+        return cityService.getById(cityId).flatMap(this::getLatestMeasurement);
     }
 
     public Optional<Measurement> getLatestMeasurementByCityName(String cityName) {

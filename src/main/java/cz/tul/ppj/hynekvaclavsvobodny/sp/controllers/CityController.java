@@ -1,0 +1,60 @@
+package cz.tul.ppj.hynekvaclavsvobodny.sp.controllers;
+
+import cz.tul.ppj.hynekvaclavsvobodny.sp.data.City;
+import cz.tul.ppj.hynekvaclavsvobodny.sp.services.CityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/city")
+public class CityController {
+
+    @Autowired
+    NumberIdCrudDelegate<CityService, City> crudDelegate;
+
+    @Autowired
+    CityService service;
+
+    @GetMapping("/all")
+    public ResponseEntity<Iterable<City>> getAll() {
+        return crudDelegate.getAll();
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<City> getById(@PathVariable int id) {
+        return crudDelegate.getById(id);
+    }
+
+    @GetMapping("/country_code/{code}")
+    public ResponseEntity<List<City>> getByCountryCode(@PathVariable String countryCode) {
+        return ResponseEntity.of(service.getByCountryCode(countryCode));
+    }
+
+    @GetMapping("/country_name/{code}")
+    public ResponseEntity<List<City>> getByCountryName(@PathVariable String countryName) {
+        return ResponseEntity.of(service.getByCountryName(countryName));
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<City> getByName(@PathVariable String cityName) {
+        return ResponseEntity.of(service.getByName(cityName));
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<?> create(@RequestBody City obj) {
+        return crudDelegate.create(obj);
+    }
+
+    @PatchMapping("/id/{id}")
+    public ResponseEntity<?> update(@RequestBody City obj, @RequestParam Integer id) {
+        return crudDelegate.update(obj, id);
+    }
+
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<?> delete(@RequestParam Integer id) {
+        return crudDelegate.delete(id);
+    }
+}
