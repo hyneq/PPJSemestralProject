@@ -5,12 +5,14 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.data.Measurement;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.MeasurementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MeasurementService extends DataModelService<MeasurementRepository, Measurement, Measurement.MeasurementId> {
 
     @Autowired
@@ -29,7 +31,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public List<Measurement> getByCity(City city) {
-        return repository.getByCity(city);
+        return repository.getById_City(city);
     }
 
     public Optional<List<Measurement>> getByCityId(Integer cityId) {
@@ -57,7 +59,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public void deleteByCity(City city) {
-        repository.deleteByCity(city);
+        repository.deleteById_City(city);
     }
 
     public void deleteByCityName(String cityName) {
@@ -65,7 +67,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public Optional<Measurement> getLatestMeasurement(City city) {
-        return repository.findByCityOrderByDatetimeDesc(city);
+        return repository.findByCityOrderById_DatetimeDesc(city);
     }
 
     public Optional<Measurement> getLatestMeasurementByCityId(Integer cityId) {
@@ -79,7 +81,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     public List<Measurement> getLastDayMeasurements(City city) {
         Instant now = Instant.now();
         Instant dayAgo = now.minus(1, ChronoUnit.DAYS);
-        return repository.findByCityAndDatetimeBetween(city, dayAgo, now);
+        return repository.findByCityAndId_DatetimeBetween(city, dayAgo, now);
     }
 
     public Optional<List<Measurement>> getLastDayMeasurementsByCityId(Integer cityId) {
@@ -105,7 +107,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     public List<Measurement> getLastWeekMeasurements(City city) {
         Instant now = Instant.now();
         Instant weekAgo = now.minus(1, ChronoUnit.WEEKS);
-        return repository.findByCityAndDatetimeBetween(city, weekAgo, now);
+        return repository.findByCityAndId_DatetimeBetween(city, weekAgo, now);
     }
 
     public Optional<List<Measurement>> getLastWeekMeasurementsByCityId(Integer cityId) {
@@ -131,7 +133,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     public List<Measurement> getLastTwoWeeksMeasurements(City city) {
         Instant now = Instant.now();
         Instant weekAgo = now.minus(2, ChronoUnit.WEEKS);
-        return repository.findByCityAndDatetimeBetween(city, weekAgo, now);
+        return repository.findByCityAndId_DatetimeBetween(city, weekAgo, now);
     }
 
     public Optional<List<Measurement>> getLastTwoWeeksMeasurementsByCityId(Integer cityId) {

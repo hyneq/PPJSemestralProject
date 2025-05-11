@@ -4,10 +4,12 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.data.City;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.Country;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CityService extends NumberIdDataModelService<CityRepository, City> {
 
     @Autowired

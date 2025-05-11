@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional
-public abstract class DataModelRepositoryTest<R extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable, T extends DataModelTestData<E>> {
+public abstract class DataModelRepositoryTest<R extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable, T extends DataModelTestData<E, ID>> {
 
     protected E obj;
 
