@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class NumberIdDataModel implements IDataModel {
+public abstract class NumberIdDataModel implements IDataModel<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,7 @@ public abstract class NumberIdDataModel implements IDataModel {
         this.setId(id);
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
