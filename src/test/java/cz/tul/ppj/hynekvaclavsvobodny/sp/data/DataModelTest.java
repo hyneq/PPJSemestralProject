@@ -14,46 +14,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class DataModelTest<T extends IDataModel, S extends DataModelTestData<T>> {
+public abstract class DataModelTest<E extends IDataModel<?>, T extends DataModelTestData<E>> {
 
     @Autowired
-    protected S data;
+    protected T data;
 
-    protected T obj;
+    protected E obj;
 
     @BeforeEach
     public void initialize() {
         obj = data.emptyInstance();
     }
 
-    public void assertEmpty(T obj) {
+    public void assertEmpty(E obj) {
         assertNotNull(obj);
     }
 
     @Test
     public void testCreate() {
-        T obj = data.emptyInstance();
+        E obj = data.emptyInstance();
 
         assertEmpty(obj);
     }
 
-    protected Stream<T> objsValid() {
+    protected Stream<E> objsValid() {
         return data.objsValid();
     }
 
     @ParameterizedTest
     @MethodSource("objsValid")
-    public void testValidateValid(T obj) {
+    public void testValidateValid(E obj) {
         obj.validate();
     }
 
-    protected Stream<T> objsInvalid() {
+    protected Stream<E> objsInvalid() {
         return data.objsInvalid();
     }
 
     @ParameterizedTest
     @MethodSource("objsInvalid")
-    public void testValidateInvalid(T obj) {
+    public void testValidateInvalid(E obj) {
         assertThrows(Exception.class,
                 obj::validate);
     }

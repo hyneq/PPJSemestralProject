@@ -9,10 +9,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public abstract class NumberIdDataModelTest<T extends NumberIdDataModel, S extends NumberIdDataModelTestData<T>> extends DataModelTest<T, S> {
+public abstract class NumberIdDataModelTest<E extends NumberIdDataModel, T extends NumberIdDataModelTestData<E>> extends DataModelTest<E, T> {
 
     @Override
-    public void assertEmpty(T obj) {
+    public void assertEmpty(E obj) {
         super.assertEmpty(obj);
         assertNull(obj.getId());
     }

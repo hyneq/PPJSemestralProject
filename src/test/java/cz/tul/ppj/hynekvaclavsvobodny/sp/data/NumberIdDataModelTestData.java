@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public abstract class NumberIdDataModelTestData<T extends NumberIdDataModel> extends DataModelTestData<T> {
+public abstract class NumberIdDataModelTestData<E extends NumberIdDataModel> extends DataModelTestData<E> {
 
     List<Integer> idsValid = Arrays.asList(null, 0, 1, 3, 12, 12345);
 

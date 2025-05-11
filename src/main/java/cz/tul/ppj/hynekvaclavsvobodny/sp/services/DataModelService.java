@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.Serializable;
 import java.util.Optional;
 
-public abstract class DataModelService<T extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable> {
+public abstract class DataModelService<R extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable> {
 
     protected final String modelName;
 
     @Autowired
-    protected T repository;
+    protected R repository;
 
     protected DataModelService(String modelName) {
         this.modelName = modelName;
