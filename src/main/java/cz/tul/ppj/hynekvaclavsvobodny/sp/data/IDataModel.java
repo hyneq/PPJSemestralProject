@@ -10,4 +10,6 @@ public interface IDataModel<ID extends Serializable> {
     void validate();
 
     ID getId();
+
+    void setId(ID id);
 }

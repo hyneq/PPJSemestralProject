@@ -22,6 +22,7 @@ public abstract class NumberIdDataModel implements IDataModel<Integer> {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         if (id != null && id < 0) {
             throw new IllegalArgumentException("The argument 'id' must be positive or null.");

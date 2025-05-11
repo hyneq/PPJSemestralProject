@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestData> {
+public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestData, Measurement.MeasurementId> {
 
     @Override
     public void assertEmpty(Measurement measurement) {
