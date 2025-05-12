@@ -26,8 +26,8 @@ public class MeasurementTestData extends DataModelTestData<Measurement, Measurem
 
         m.setTemp(10.05);
         m.setTempFeelsLike(10.05);
-        m.setTemp_min(10.05);
-        m.setTemp_max(10.05);
+        m.setTempMin(10.05);
+        m.setTempMax(10.05);
         m.setPressure(1024);
         m.setHumidity(80);
         m.setWindSpeed(100.0);
