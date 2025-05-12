@@ -26,38 +26,40 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
         deleteById(new Measurement.MeasurementId(city, datetime));
     }
 
-    List<Measurement> getById_City(City city);
+    List<Measurement> getByIdCity(City city);
 
-    void deleteById_City(City city);
+    void deleteByIdCity(City city);
 
-    Optional<Measurement> findByCityOrderById_DatetimeDesc(City city);
+    Optional<Measurement> findByIdCityOrderByIdDatetimeDesc(City city);
 
-    List<Measurement> findByCityAndId_DatetimeBetween(City city, Instant from, Instant to);
+    List<Measurement> findByIdCityAndIdDatetimeBetween(City city, Instant from, Instant to);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
             "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)) " +
             "FROM Measurement m " +
             "WHERE m.id.city = :city " +
-            "GROUP BY CAST(m.datetime AS date) " +
-            "ORDER BY CAST(m.datetime AS date) DESC")
+            "GROUP BY CAST(m.id.datetime AS date) " +
+            "ORDER BY CAST(m.id.datetime AS date) DESC")
     Optional<MeasurementAggregation> findDailyAverage(@Param("city") City city);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
-            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)) " +
+            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)), " +
+            "FUNCTION('WEEK', m.id.datetime) as week " +
             "FROM Measurement m " +
             "WHERE m.id.city = :city " +
-            "GROUP BY FUNCTION('YEAR', m.datetime), FUNCTION('WEEK', m.datetime) " +
-            "ORDER BY FUNCTION('YEAR', m.datetime) DESC, FUNCTION('WEEK', m.datetime) DESC ")
+            "GROUP BY FUNCTION('YEAR', m.id.datetime), week " +
+            "ORDER BY FUNCTION('YEAR', m.id.datetime) DESC, week DESC ")
     Optional<MeasurementAggregation> findWeeklyAverage(@Param("city") City city);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
-            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)) " +
+            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)), " +
+            "FUNCTION('FLOOR', EXTRACT(WEEK FROM m.id.datetime) / 2) as week_group " +
             "FROM Measurement m " +
             "WHERE m.id.city = :city " +
-            "GROUP BY FUNCTION('YEAR', m.datetime), FUNCTION('WEEK', m.datetime) / 2 " +
-            "ORDER BY FUNCTION('YEAR', m.datetime) DESC, FUNCTION('WEEK', m.datetime) / 2 DESC")
+            "GROUP BY FUNCTION('YEAR', m.id.datetime), week_group " +
+            "ORDER BY FUNCTION('YEAR', m.id.datetime) DESC, week_group DESC")
     Optional<MeasurementAggregation> findTwoWeeksAverage(@Param("city") City city);
 }
