@@ -114,8 +114,8 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
         this.tempMin = tempMin;
     }
 
-    public void setTemp_min(Double temp_min) {
-        setTempMin(temp_min.floatValue());
+    public void setTempMin(Double tempMin) {
+        setTempMin(tempMin.floatValue());
     }
 
     public Float getTempMax() {
@@ -126,8 +126,8 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
         this.tempMax = tempMax;
     }
 
-    public void setTemp_max(Double temp_max) {
-        setTempMax(temp_max.floatValue());
+    public void setTempMax(Double tempMax) {
+        setTempMax(tempMax.floatValue());
     }
 
     public Integer getPressure() {
