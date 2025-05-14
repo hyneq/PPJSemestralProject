@@ -21,6 +21,19 @@ public class MeasurementAggregation {
         this.windGust = windGust;
     }
 
+    public MeasurementAggregation(double temp, double tempFeelsLike, double tempMin, double tempMax, double pressure, double humidity, double windSpeed, double windGust) {
+        this(
+                (float)temp,
+                (float)tempFeelsLike,
+                (float)tempMin,
+                (float)tempMax,
+                (int)pressure,
+                (int)humidity,
+                (float)windSpeed,
+                (float)windGust
+        );
+    }
+
     public float getTemp() {
         return temp;
     }
