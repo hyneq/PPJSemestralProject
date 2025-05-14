@@ -77,6 +77,6 @@ public class MeasurementTestData extends DataModelTestData<Measurement, Measurem
 
     @Override
     public Stream<Measurement.MeasurementId> idsInvalid() {
-        return Stream.empty();
+        return Stream.of((Measurement.MeasurementId) null);
     }
 }
