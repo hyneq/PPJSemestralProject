@@ -1,14 +1,14 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.dto;
 
 public class MeasurementAggregation {
-    private float temp;
-    private float tempFeelsLike;
-    private float tempMin;
-    private float tempMax;
-    private int pressure;
-    private int humidity;
-    private float windSpeed;
-    private float windGust;
+    private final float temp;
+    private final float tempFeelsLike;
+    private final float tempMin;
+    private final float tempMax;
+    private final int pressure;
+    private final int humidity;
+    private final float windSpeed;
+    private final float windGust;
 
     public MeasurementAggregation(float temp, float tempFeelsLike, float tempMin, float tempMax, int pressure, int humidity, float windSpeed, float windGust) {
         this.temp = temp;
