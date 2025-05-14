@@ -1,5 +1,7 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.dto;
 
+import java.util.Objects;
+
 public class MeasurementAggregation {
     private final float temp;
     private final float tempFeelsLike;
@@ -64,5 +66,16 @@ public class MeasurementAggregation {
 
     public float getWindGust() {
         return windGust;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof MeasurementAggregation that)) return false;
+        return Float.compare(getTemp(), that.getTemp()) == 0 && Float.compare(getTempFeelsLike(), that.getTempFeelsLike()) == 0 && Float.compare(getTempMin(), that.getTempMin()) == 0 && Float.compare(getTempMax(), that.getTempMax()) == 0 && getPressure() == that.getPressure() && getHumidity() == that.getHumidity() && Float.compare(getWindSpeed(), that.getWindSpeed()) == 0 && Float.compare(getWindGust(), that.getWindGust()) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTemp(), getTempFeelsLike(), getTempMin(), getTempMax(), getPressure(), getHumidity(), getWindSpeed(), getWindGust());
     }
 }
