@@ -13,17 +13,17 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
     @EmbeddedId
     private MeasurementId id;
 
-    private Float temp;
+    private Double temp;
 
-    private Float tempFeelsLike;
-    private Float tempMin;
-    private Float tempMax;
+    private Double tempFeelsLike;
+    private Double tempMin;
+    private Double tempMax;
     private Integer pressure;
     private Integer humidity;
 
-    private Float windSpeed;
+    private Double windSpeed;
     private Integer windDirection;
-    private Float windGust;
+    private Double windGust;
 
     private Integer clouds;
 
@@ -82,52 +82,36 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
         id.setDatetime(datetime);
     }
 
-    public Float getTemp() {
+    public Double getTemp() {
         return temp;
     }
 
-    public void setTemp(Float temp) {
+    public void setTemp(Double temp) {
         this.temp = temp;
     }
 
-    public void setTemp(Double temp) {
-        setTemp(temp.floatValue());
-    }
-
-    public Float getTempFeelsLike() {
+    public Double getTempFeelsLike() {
         return tempFeelsLike;
     }
 
-    public void setTempFeelsLike(Float tempFeelsLike) {
+    public void setTempFeelsLike(Double tempFeelsLike) {
         this.tempFeelsLike = tempFeelsLike;
     }
 
-    public void setTempFeelsLike(Double tempFeelsLike) {
-        setTempFeelsLike(tempFeelsLike.floatValue());
-    }
-
-    public Float getTempMin() {
+    public Double getTempMin() {
         return tempMin;
     }
 
-    public void setTempMin(Float tempMin) {
+    public void setTempMin(Double tempMin) {
         this.tempMin = tempMin;
     }
 
-    public void setTempMin(Double tempMin) {
-        setTempMin(tempMin.floatValue());
-    }
-
-    public Float getTempMax() {
+    public Double getTempMax() {
         return tempMax;
     }
 
-    public void setTempMax(Float tempMax) {
-        this.tempMax = tempMax;
-    }
-
     public void setTempMax(Double tempMax) {
-        setTempMax(tempMax.floatValue());
+        this.tempMax = tempMax;
     }
 
     public Integer getPressure() {
@@ -154,38 +138,30 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
         this.humidity = humidity;
     }
 
-    private void testWindSpeed(Float windSpeed, String paramName) {
+    private void testWindSpeed(Double windSpeed, String paramName) {
         if (windSpeed != null && windSpeed < 0) {
             throw new IllegalArgumentException(String.format("The argument '%s' must not be negative", paramName));
         }
     }
 
-    public Float getWindSpeed() {
+    public Double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(Float windSpeed) {
+    public void setWindSpeed(Double windSpeed) {
         testWindSpeed(windSpeed, "wind_speed");
 
         this.windSpeed = windSpeed;
     }
 
-    public void setWindSpeed(Double windSpeed) {
-        setWindSpeed(windSpeed.floatValue());
-    }
-
-    public Float getWindGust() {
+    public Double getWindGust() {
         return windGust;
     }
 
-    public void setWindGust(Float windGust) {
+    public void setWindGust(Double windGust) {
         testWindSpeed(windGust, "wind_gust");
 
         this.windGust = windGust;
-    }
-
-    public void setWindGust(Double tempMax) {
-        setWindGust(tempMax.floatValue());
     }
 
     public Integer getWindDirection() {
