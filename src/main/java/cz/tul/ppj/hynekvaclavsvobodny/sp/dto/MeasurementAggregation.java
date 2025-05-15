@@ -3,16 +3,16 @@ package cz.tul.ppj.hynekvaclavsvobodny.sp.dto;
 import java.util.Objects;
 
 public class MeasurementAggregation {
-    private final float temp;
-    private final float tempFeelsLike;
-    private final float tempMin;
-    private final float tempMax;
+    private final double temp;
+    private final double tempFeelsLike;
+    private final double tempMin;
+    private final double tempMax;
     private final int pressure;
     private final int humidity;
-    private final float windSpeed;
-    private final float windGust;
+    private final double windSpeed;
+    private final double windGust;
 
-    public MeasurementAggregation(float temp, float tempFeelsLike, float tempMin, float tempMax, int pressure, int humidity, float windSpeed, float windGust) {
+    public MeasurementAggregation(double temp, double tempFeelsLike, double tempMin, double tempMax, int pressure, int humidity, double windSpeed, double windGust) {
         this.temp = temp;
         this.tempFeelsLike = tempFeelsLike;
         this.tempMin = tempMin;
@@ -23,32 +23,19 @@ public class MeasurementAggregation {
         this.windGust = windGust;
     }
 
-    public MeasurementAggregation(double temp, double tempFeelsLike, double tempMin, double tempMax, double pressure, double humidity, double windSpeed, double windGust) {
-        this(
-                (float)temp,
-                (float)tempFeelsLike,
-                (float)tempMin,
-                (float)tempMax,
-                (int)pressure,
-                (int)humidity,
-                (float)windSpeed,
-                (float)windGust
-        );
-    }
-
-    public float getTemp() {
+    public double getTemp() {
         return temp;
     }
 
-    public float getTempFeelsLike() {
+    public double getTempFeelsLike() {
         return tempFeelsLike;
     }
 
-    public float getTempMin() {
+    public double getTempMin() {
         return tempMin;
     }
 
-    public float getTempMax() {
+    public double getTempMax() {
         return tempMax;
     }
 
@@ -60,18 +47,18 @@ public class MeasurementAggregation {
         return humidity;
     }
 
-    public float getWindSpeed() {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
-    public float getWindGust() {
+    public double getWindGust() {
         return windGust;
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof MeasurementAggregation that)) return false;
-        return Float.compare(getTemp(), that.getTemp()) == 0 && Float.compare(getTempFeelsLike(), that.getTempFeelsLike()) == 0 && Float.compare(getTempMin(), that.getTempMin()) == 0 && Float.compare(getTempMax(), that.getTempMax()) == 0 && getPressure() == that.getPressure() && getHumidity() == that.getHumidity() && Float.compare(getWindSpeed(), that.getWindSpeed()) == 0 && Float.compare(getWindGust(), that.getWindGust()) == 0;
+        return Double.compare(getTemp(), that.getTemp()) == 0 && Double.compare(getTempFeelsLike(), that.getTempFeelsLike()) == 0 && Double.compare(getTempMin(), that.getTempMin()) == 0 && Double.compare(getTempMax(), that.getTempMax()) == 0 && getPressure() == that.getPressure() && getHumidity() == that.getHumidity() && Double.compare(getWindSpeed(), that.getWindSpeed()) == 0 && Double.compare(getWindGust(), that.getWindGust()) == 0;
     }
 
     @Override
