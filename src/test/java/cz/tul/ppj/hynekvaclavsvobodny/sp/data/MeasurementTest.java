@@ -62,11 +62,11 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
         assertEquals(datetime, obj.getDatetime());
     }
 
-    private static final List<Float> tempsValid = Arrays.asList((float)0, (float)2, (float)10, (float)0.5, (float)-0.5, (float)-2, (float)-10  );
+    private static final List<Double> tempsValid = Arrays.asList(0.0, 2.0, 10.0, 0.5, -0.5, -2.0, -10.0);
 
     @ParameterizedTest
     @FieldSource("tempsValid")
-    public void testTempValid(Float temp) {
+    public void testTempValid(Double temp) {
         obj.setTemp(temp);
 
         assertEquals(temp, obj.getTemp());
@@ -74,7 +74,7 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
 
     @ParameterizedTest
     @FieldSource("tempsValid")
-    public void testTempFeelsLikeValid(Float temp) {
+    public void testTempFeelsLikeValid(Double temp) {
         obj.setTempFeelsLike(temp);
 
         assertEquals(temp, obj.getTempFeelsLike());
@@ -82,7 +82,7 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
 
     @ParameterizedTest
     @FieldSource("tempsValid")
-    public void testTempMinValid(Float temp) {
+    public void testTempMinValid(Double temp) {
         obj.setTempMin(temp);
 
         assertEquals(temp, obj.getTempMin());
@@ -90,7 +90,7 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
 
     @ParameterizedTest
     @FieldSource("tempsValid")
-    public void testTempMaxValid(Float temp) {
+    public void testTempMaxValid(Double temp) {
         obj.setTempMax(temp);
 
         assertEquals(temp, obj.getTempMax());
@@ -134,11 +134,11 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
                 () -> obj.setHumidity(humidity));
     }
 
-    private static final List<Float> windSpeedsValid = Arrays.asList((float)0, (float)0.1, (float)5, (float)12, (float)50.586);
+    private static final List<Double> windSpeedsValid = Arrays.asList(0.0, 0.1, 5.0, 12.0, 50.586);
 
     @ParameterizedTest
     @FieldSource("windSpeedsValid")
-    public void testWindSpeedValid(Float windSpeed) {
+    public void testWindSpeedValid(Double windSpeed) {
         obj.setWindSpeed(windSpeed);
 
         assertEquals(windSpeed, obj.getWindSpeed());
@@ -146,24 +146,24 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
 
     @ParameterizedTest
     @FieldSource("windSpeedsValid")
-    public void testWindGustValid(Float windGust) {
+    public void testWindGustValid(Double windGust) {
         obj.setWindGust(windGust);
 
         assertEquals(windGust, obj.getWindGust());
     }
 
-    private static final List<Float> windSpeedsInvalid = Arrays.asList((float)-0.1, (float)-5, (float)-12, (float)-50.586);
+    private static final List<Double> windSpeedsInvalid = Arrays.asList(-0.1, -5.0, -12.0, -50.586);
 
     @ParameterizedTest
     @FieldSource("windSpeedsInvalid")
-    public void testWindSpeedInvalid(Float windSpeed) {
+    public void testWindSpeedInvalid(Double windSpeed) {
         assertThrows(IllegalArgumentException.class,
                 () -> obj.setWindSpeed(windSpeed));
     }
 
     @ParameterizedTest
     @FieldSource("windSpeedsInvalid")
-    public void testWindGustInvalid(Float windGust) {
+    public void testWindGustInvalid(Double windGust) {
         assertThrows(IllegalArgumentException.class,
                 () -> obj.setWindGust(windGust));
     }

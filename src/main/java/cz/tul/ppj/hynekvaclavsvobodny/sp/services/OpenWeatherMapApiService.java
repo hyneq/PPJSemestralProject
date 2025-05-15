@@ -71,9 +71,9 @@ public class OpenWeatherMapApiService {
                 measurement.setDatetime(Instant.ofEpochSecond(jsonMeasurement.getLong("dt")));
 
                 JSONObject main = jsonMeasurement.getJSONObject("main");
-                measurement.setTemp(main.optFloatObject("temp"));
-                measurement.setTempMin(main.optFloatObject("temp_min"));
-                measurement.setTempMax(main.optFloatObject("temp_max"));
+                measurement.setTemp(main.optDoubleObject("temp"));
+                measurement.setTempMin(main.optDoubleObject("temp_min"));
+                measurement.setTempMax(main.optDoubleObject("temp_max"));
                 measurement.setPressure(main.optIntegerObject("pressure"));
                 measurement.setHumidity(main.optIntegerObject("humidity"));
 
