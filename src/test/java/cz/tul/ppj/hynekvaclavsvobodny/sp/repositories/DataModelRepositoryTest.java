@@ -45,19 +45,19 @@ public abstract class DataModelRepositoryTest<R extends DataModelRepository<E, I
 
     @ParameterizedTest
     @MethodSource("objsValid")
-        public void testSaveValid(E obj) {
-            repository.save(obj);
-        }
-
-        private Stream<E> objsInvalid() {
-            return data.objsInvalid();
-        }
-
-        @ParameterizedTest
-        @MethodSource("objsInvalid")
-        public void testSaveInvalid(E obj) {
-            assertThrows(Exception.class,
-                    () -> repository.save(obj));
+    public void testSaveValid(E obj) {
+        repository.save(obj);
     }
+
+    private Stream<E> objsInvalid() {
+        return data.objsInvalid();
+    }
+
+    @ParameterizedTest
+    @MethodSource("objsInvalid")
+    public void testSaveInvalid(E obj) {
+        assertThrows(Exception.class,
+                () -> repository.save(obj));
+}
 
 }
