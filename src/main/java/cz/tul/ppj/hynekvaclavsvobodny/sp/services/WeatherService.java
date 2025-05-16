@@ -24,7 +24,7 @@ public class WeatherService {
     OpenWeatherMapApiService openWeatherMapApiService;
 
     public List<Measurement> updateMeasurements(City city) {
-        measurementRepository.deleteByIdCity(city);
+        measurementRepository.deleteAllByIdCity(city);
 
         Instant to = Instant.now();
         Instant from = to.minus(2, ChronoUnit.WEEKS);

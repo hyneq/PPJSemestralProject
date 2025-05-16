@@ -31,7 +31,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public List<Measurement> getByCity(City city) {
-        return repository.getByIdCity(city);
+        return repository.findAllByIdCity(city);
     }
 
     public Optional<List<Measurement>> getByCityId(Integer cityId) {
@@ -59,7 +59,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public void deleteByCity(City city) {
-        repository.deleteByIdCity(city);
+        repository.deleteAllByIdCity(city);
     }
 
     public void deleteByCityName(String cityName) {
@@ -81,7 +81,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     public List<Measurement> getLastDayMeasurements(City city) {
         Instant now = Instant.now();
         Instant dayAgo = now.minus(1, ChronoUnit.DAYS);
-        return repository.findByIdCityAndIdDatetimeBetween(city, dayAgo, now);
+        return repository.findAllByIdCityAndIdDatetimeBetween(city, dayAgo, now);
     }
 
     public Optional<List<Measurement>> getLastDayMeasurementsByCityId(Integer cityId) {
@@ -107,7 +107,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     public List<Measurement> getLastWeekMeasurements(City city) {
         Instant now = Instant.now();
         Instant weekAgo = now.minus(1, ChronoUnit.WEEKS);
-        return repository.findByIdCityAndIdDatetimeBetween(city, weekAgo, now);
+        return repository.findAllByIdCityAndIdDatetimeBetween(city, weekAgo, now);
     }
 
     public Optional<List<Measurement>> getLastWeekMeasurementsByCityId(Integer cityId) {
@@ -133,7 +133,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     public List<Measurement> getLastTwoWeeksMeasurements(City city) {
         Instant now = Instant.now();
         Instant weekAgo = now.minus(2, ChronoUnit.WEEKS);
-        return repository.findByIdCityAndIdDatetimeBetween(city, weekAgo, now);
+        return repository.findAllByIdCityAndIdDatetimeBetween(city, weekAgo, now);
     }
 
     public Optional<List<Measurement>> getLastTwoWeeksMeasurementsByCityId(Integer cityId) {

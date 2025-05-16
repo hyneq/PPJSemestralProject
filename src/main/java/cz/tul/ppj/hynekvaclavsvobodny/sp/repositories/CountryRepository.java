@@ -8,13 +8,13 @@ import java.util.Optional;
 @Repository
 public interface CountryRepository extends NumberIdDataModelRepository<Country> {
 
-    Country getByCode(String code);
-
     Optional<Country> findByCode(String code);
 
-    Country getByName(String name);
+    Country getByCode(String code);
 
     Optional<Country> findByName(String name);
+
+    Country getByName(String name);
 
     void deleteByName(String name);
 

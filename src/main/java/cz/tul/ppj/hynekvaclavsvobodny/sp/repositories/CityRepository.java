@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface CityRepository extends NumberIdDataModelRepository<City> {
 
-    List<City> getByCountry(Country country);
+    List<City> findAllByCountry(Country country);
 
     Optional<City> findByName(String name);
 
