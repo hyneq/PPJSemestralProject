@@ -24,7 +24,7 @@ public class CityService extends NumberIdDataModelService<CityRepository, City> 
     }
 
     public List<City> getByCountry(Country country) {
-        return repository.getByCountry(country);
+        return repository.findAllByCountry(country);
     }
 
     public Optional<List<City>> getByCountryCode(String countryCode) {

@@ -26,13 +26,13 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
         deleteById(new Measurement.MeasurementId(city, datetime));
     }
 
-    List<Measurement> getByIdCity(City city);
+    List<Measurement> findAllByIdCity(City city);
 
-    void deleteByIdCity(City city);
+    void deleteAllByIdCity(City city);
 
     Optional<Measurement> findByIdCityOrderByIdDatetimeDesc(City city);
 
-    List<Measurement> findByIdCityAndIdDatetimeBetween(City city, Instant from, Instant to);
+    List<Measurement> findAllByIdCityAndIdDatetimeBetween(City city, Instant from, Instant to);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
