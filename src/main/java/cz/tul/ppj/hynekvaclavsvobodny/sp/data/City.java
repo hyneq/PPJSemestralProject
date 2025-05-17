@@ -38,7 +38,7 @@ public class City extends NumberIdDataModel {
     public void validate() {
         Objects.requireNonNull(getName(), "'name' must not be null.");
         Objects.requireNonNull(getCountry(), "'country' must not be null.");
-        Objects.requireNonNull(getCountryId(), "'country_id' must not be null.");
+        getCountry().validate();
     }
 
     public String getName() {

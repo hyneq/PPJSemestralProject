@@ -45,7 +45,7 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
     @Override
     public void validate() {
         Objects.requireNonNull(getCity(), "'city' must not be null.");
-        Objects.requireNonNull(getCityId(), "'city' must not be null.");
+        getCity().validate();
         Objects.requireNonNull(getDatetime(), "'datetime' must not be null.");
     }
 
