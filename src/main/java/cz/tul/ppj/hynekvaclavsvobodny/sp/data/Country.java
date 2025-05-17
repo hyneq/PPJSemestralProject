@@ -9,8 +9,10 @@ import java.util.Set;
 @Table(name = "Country")
 public class Country extends NumberIdDataModel {
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String code;
+
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "country")
