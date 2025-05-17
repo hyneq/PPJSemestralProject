@@ -8,10 +8,11 @@ import java.util.Objects;
 @Table(name = "City")
 public class City extends NumberIdDataModel {
 
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
     public City() {

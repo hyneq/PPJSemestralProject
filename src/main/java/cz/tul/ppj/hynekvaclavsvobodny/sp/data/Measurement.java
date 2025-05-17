@@ -211,9 +211,10 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
     public static class MeasurementId implements Serializable {
 
         @ManyToOne
-        @JoinColumn(name = "city_id")
+        @JoinColumn(name = "city_id", nullable = false)
         private City city;
 
+        @Column(nullable = false)
         private Instant datetime;
 
         public MeasurementId() {}
