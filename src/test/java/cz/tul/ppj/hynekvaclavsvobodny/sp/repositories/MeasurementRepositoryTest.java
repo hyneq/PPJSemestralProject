@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MeasurementRepositoryTest extends DataModelRepositoryTest<MeasurementRepository, Measurement, Measurement.MeasurementId, MeasurementTestData> {
+public class MeasurementRepositoryTest extends DataModelRepositoryTest<MeasurementRepository, Measurement, Measurement.MeasurementId, MeasurementTestData, MeasurementRepositoryTestHelper> {
 
     @ParameterizedTest
     @MethodSource("objsValid")

@@ -1,5 +1,6 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -22,8 +23,13 @@ public abstract class DataModelTest<E extends IDataModel<ID>, T extends DataMode
 
     protected E obj;
 
+    @BeforeAll
+    public void initializeAll() {
+        data.reset();
+    }
+
     @BeforeEach
-    public void initialize() {
+    public void initializeEach() {
         obj = data.emptyInstance();
     }
 

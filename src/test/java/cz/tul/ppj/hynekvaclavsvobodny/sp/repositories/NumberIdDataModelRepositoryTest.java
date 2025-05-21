@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public abstract class NumberIdDataModelRepositoryTest<
-        R extends NumberIdDataModelRepository<E>, E extends NumberIdDataModel, T extends NumberIdDataModelTestData<E>
-        >  extends DataModelRepositoryTest<R, E, Integer, T> {
+            R extends NumberIdDataModelRepository<E>, E extends NumberIdDataModel, T extends NumberIdDataModelTestData<E>, S extends NumberIdDataModelRepositoryTestHelper<R,E,T>
+        >  extends DataModelRepositoryTest<R, E, Integer, T, S> {
 
     @ParameterizedTest
     @MethodSource("objsValid")
