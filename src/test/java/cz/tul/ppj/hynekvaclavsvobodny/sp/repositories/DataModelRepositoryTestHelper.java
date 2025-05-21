@@ -21,9 +21,9 @@ public class DataModelRepositoryTestHelper<R extends DataModelRepository<E, ?>, 
         this.dependencies.add(dependency);
     }
 
-    public void persist() {
+    public void persistDependencies() {
         for (DataModelRepositoryTestHelper<?, ?, ?> dependency : dependencies) {
-            dependency.persistData();
+            dependency.persist();
         }
     }
 
@@ -31,8 +31,8 @@ public class DataModelRepositoryTestHelper<R extends DataModelRepository<E, ?>, 
         repository.saveAll(testData.getObjsValid());
     }
 
-    public void persistData() {
-        persist();
+    public void persist() {
+        persistDependencies();
         persistSelf();
     }
 
