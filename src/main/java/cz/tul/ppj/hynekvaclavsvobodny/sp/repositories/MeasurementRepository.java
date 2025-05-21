@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,13 +25,13 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
         deleteById(new Measurement.MeasurementId(city, datetime));
     }
 
-    List<Measurement> findAllByIdCity(City city);
+    Iterable<Measurement> findAllByIdCity(City city);
 
     void deleteAllByIdCity(City city);
 
     Optional<Measurement> findByIdCityOrderByIdDatetimeDesc(City city);
 
-    List<Measurement> findAllByIdCityAndIdDatetimeBetween(City city, Instant from, Instant to);
+    Iterable<Measurement> findAllByIdCityAndIdDatetimeBetween(City city, Instant from, Instant to);
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +

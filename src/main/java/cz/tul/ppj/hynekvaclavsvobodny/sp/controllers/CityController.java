@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/city")
 public class CityController {
@@ -30,12 +28,12 @@ public class CityController {
     }
 
     @GetMapping("/country_code/{code}")
-    public ResponseEntity<List<City>> getByCountryCode(@PathVariable String countryCode) {
+    public ResponseEntity<Iterable<City>> getByCountryCode(@PathVariable String countryCode) {
         return ResponseEntity.of(service.getByCountryCode(countryCode));
     }
 
     @GetMapping("/country_name/{code}")
-    public ResponseEntity<List<City>> getByCountryName(@PathVariable String countryName) {
+    public ResponseEntity<Iterable<City>> getByCountryName(@PathVariable String countryName) {
         return ResponseEntity.of(service.getByCountryName(countryName));
     }
 

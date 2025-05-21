@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,15 +29,15 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return cityService.getById(cityId).flatMap(city -> getById(city, datetime));
     }
 
-    public List<Measurement> getByCity(City city) {
+    public Iterable<Measurement> getByCity(City city) {
         return repository.findAllByIdCity(city);
     }
 
-    public Optional<List<Measurement>> getByCityId(Integer cityId) {
+    public Optional<Iterable<Measurement>> getByCityId(Integer cityId) {
         return cityService.getById(cityId).map(this::getByCity);
     }
 
-    public Optional<List<Measurement>> getByCityName(String cityName) {
+    public Optional<Iterable<Measurement>> getByCityName(String cityName) {
         return cityService.getByName(cityName).map(this::getByCity);
     }
 
@@ -78,17 +77,17 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return cityService.getByName(cityName).flatMap(this::getLatestMeasurement);
     }
 
-    public List<Measurement> getLastDayMeasurements(City city) {
+    public Iterable<Measurement> getLastDayMeasurements(City city) {
         Instant now = Instant.now();
         Instant dayAgo = now.minus(1, ChronoUnit.DAYS);
         return repository.findAllByIdCityAndIdDatetimeBetween(city, dayAgo, now);
     }
 
-    public Optional<List<Measurement>> getLastDayMeasurementsByCityId(Integer cityId) {
+    public Optional<Iterable<Measurement>> getLastDayMeasurementsByCityId(Integer cityId) {
         return cityService.getById(cityId).map(this::getLastDayMeasurements);
     }
 
-    public Optional<List<Measurement>> getLastDayMeasurementsByCityName(String cityName) {
+    public Optional<Iterable<Measurement>> getLastDayMeasurementsByCityName(String cityName) {
         return cityService.getByName(cityName).map(this::getLastDayMeasurements);
     }
 
@@ -104,17 +103,17 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return cityService.getByName(cityName).flatMap(this::getLastDayAverage);
     }
 
-    public List<Measurement> getLastWeekMeasurements(City city) {
+    public Iterable<Measurement> getLastWeekMeasurements(City city) {
         Instant now = Instant.now();
         Instant weekAgo = now.minus(1, ChronoUnit.WEEKS);
         return repository.findAllByIdCityAndIdDatetimeBetween(city, weekAgo, now);
     }
 
-    public Optional<List<Measurement>> getLastWeekMeasurementsByCityId(Integer cityId) {
+    public Optional<Iterable<Measurement>> getLastWeekMeasurementsByCityId(Integer cityId) {
         return cityService.getById(cityId).map(this::getLastWeekMeasurements);
     }
 
-    public Optional<List<Measurement>> getLastWeekMeasurementsByCityName(String cityName) {
+    public Optional<Iterable<Measurement>> getLastWeekMeasurementsByCityName(String cityName) {
         return cityService.getByName(cityName).map(this::getLastWeekMeasurements);
     }
 
@@ -130,17 +129,17 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         return cityService.getByName(cityName).flatMap(this::getLastWeekAverage);
     }
 
-    public List<Measurement> getLastTwoWeeksMeasurements(City city) {
+    public Iterable<Measurement> getLastTwoWeeksMeasurements(City city) {
         Instant now = Instant.now();
         Instant weekAgo = now.minus(2, ChronoUnit.WEEKS);
         return repository.findAllByIdCityAndIdDatetimeBetween(city, weekAgo, now);
     }
 
-    public Optional<List<Measurement>> getLastTwoWeeksMeasurementsByCityId(Integer cityId) {
+    public Optional<Iterable<Measurement>> getLastTwoWeeksMeasurementsByCityId(Integer cityId) {
         return cityService.getById(cityId).map(this::getLastTwoWeeksMeasurements);
     }
 
-    public Optional<List<Measurement>> getLastTwoWeeksMeasurementsByCityName(String cityName) {
+    public Optional<Iterable<Measurement>> getLastTwoWeeksMeasurementsByCityName(String cityName) {
         return cityService.getByName(cityName).map(this::getLastTwoWeeksMeasurements);
     }
 

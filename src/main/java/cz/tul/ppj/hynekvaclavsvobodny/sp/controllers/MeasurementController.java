@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/measurement")
@@ -59,12 +58,12 @@ public class MeasurementController {
     }
 
     @GetMapping("/last_day/list/city_id/{city_id}")
-    public ResponseEntity<List<Measurement>> getLastDayMeasurementsByCityId(@RequestParam Integer cityId) {
+    public ResponseEntity<Iterable<Measurement>> getLastDayMeasurementsByCityId(@RequestParam Integer cityId) {
         return ResponseEntity.of(service.getLastDayMeasurementsByCityId(cityId));
     }
 
     @GetMapping("/last_day/list/city_name/{city_name}")
-    public ResponseEntity<List<Measurement>> getLastDayMeasurementsByCityName(@RequestParam String cityName) {
+    public ResponseEntity<Iterable<Measurement>> getLastDayMeasurementsByCityName(@RequestParam String cityName) {
         return ResponseEntity.of(service.getLastDayMeasurementsByCityName(cityName));
     }
 
@@ -79,12 +78,12 @@ public class MeasurementController {
     }
 
     @GetMapping("/last_week/list/city_id/{city_id}")
-    public ResponseEntity<List<Measurement>> getLastWeekMeasurementsByCityId(@RequestParam Integer cityId) {
+    public ResponseEntity<Iterable<Measurement>> getLastWeekMeasurementsByCityId(@RequestParam Integer cityId) {
         return ResponseEntity.of(service.getLastWeekMeasurementsByCityId(cityId));
     }
 
     @GetMapping("/last_week/list/city_name/{city_name}")
-    public ResponseEntity<List<Measurement>> getLastWeekMeasurementsByCityName(@RequestParam String cityName) {
+    public ResponseEntity<Iterable<Measurement>> getLastWeekMeasurementsByCityName(@RequestParam String cityName) {
         return ResponseEntity.of(service.getLastWeekMeasurementsByCityName(cityName));
     }
 
@@ -99,12 +98,12 @@ public class MeasurementController {
     }
 
     @GetMapping("/last_two_weeks/list/city_id/{city_id}")
-    public ResponseEntity<List<Measurement>> getLastTwoWeeksMeasurementsByCityId(@RequestParam Integer cityId) {
+    public ResponseEntity<Iterable<Measurement>> getLastTwoWeeksMeasurementsByCityId(@RequestParam Integer cityId) {
         return ResponseEntity.of(service.getLastTwoWeeksMeasurementsByCityId(cityId));
     }
 
     @GetMapping("/last_two_weeks/list/city_name/{city_name}")
-    public ResponseEntity<List<Measurement>> getLastTwoWeeksMeasurementsByCityName(@RequestParam String cityName) {
+    public ResponseEntity<Iterable<Measurement>> getLastTwoWeeksMeasurementsByCityName(@RequestParam String cityName) {
         return ResponseEntity.of(service.getLastTwoWeeksMeasurementsByCityName(cityName));
     }
 
