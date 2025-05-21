@@ -35,7 +35,7 @@ public abstract class DataModelRepositoryTest<
     @BeforeAll
     public void initializeAll() {
         data.reset();
-        helper.persist();
+        helper.persistDependencies();
     }
 
     @BeforeEach
@@ -45,7 +45,7 @@ public abstract class DataModelRepositoryTest<
 
     @AfterAll
     public void deinitializeAll() {
-        helper.reset();
+        helper.resetDependencies();
     }
 
     @Test
