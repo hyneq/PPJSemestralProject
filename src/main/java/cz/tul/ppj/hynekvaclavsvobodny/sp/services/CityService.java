@@ -6,7 +6,6 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,15 +22,15 @@ public class CityService extends NumberIdDataModelService<CityRepository, City> 
         return repository.findByName(name);
     }
 
-    public List<City> getByCountry(Country country) {
+    public Iterable<City> getByCountry(Country country) {
         return repository.findAllByCountry(country);
     }
 
-    public Optional<List<City>> getByCountryCode(String countryCode) {
+    public Optional<Iterable<City>> getByCountryCode(String countryCode) {
         return countryService.getByCode(countryCode).map(this::getByCountry);
     }
 
-    public Optional<List<City>> getByCountryName(String countryName) {
+    public Optional<Iterable<City>> getByCountryName(String countryName) {
         return countryService.getByName(countryName).map(this::getByCountry);
     }
 
