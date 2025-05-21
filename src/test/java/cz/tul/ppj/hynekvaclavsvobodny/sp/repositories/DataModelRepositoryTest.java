@@ -2,9 +2,7 @@ package cz.tul.ppj.hynekvaclavsvobodny.sp.repositories;
 
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.DataModelTestData;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.IDataModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional
-public abstract class DataModelRepositoryTest<R extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable, T extends DataModelTestData<E, ID>> {
+public abstract class DataModelRepositoryTest<
+        R extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable, T extends DataModelTestData<E, ID>, S extends DataModelRepositoryTestHelper<R,E,T>
+    > {
 
     protected E obj;
 
@@ -29,9 +29,23 @@ public abstract class DataModelRepositoryTest<R extends DataModelRepository<E, I
     @Autowired
     protected R repository;
 
+    @Autowired
+    protected S helper;
+
+    @BeforeAll
+    public void initializeAll() {
+        data.reset();
+        helper.persist();
+    }
+
     @BeforeEach
-    public void initialize() {
+    public void initializeEach() {
         obj = data.emptyInstance();
+    }
+
+    @AfterAll
+    public void deinitializeAll() {
+        helper.reset();
     }
 
     @Test
