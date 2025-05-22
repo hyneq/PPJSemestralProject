@@ -6,4 +6,4 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.services.CountryService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CountryCrudDelegate extends NumberIdCrudDelegate<CountryService, CountryRepository, Country> {}
+public class CountryCrudDelegate extends CrudDelegate<CountryService, CountryRepository, Country, String> {}

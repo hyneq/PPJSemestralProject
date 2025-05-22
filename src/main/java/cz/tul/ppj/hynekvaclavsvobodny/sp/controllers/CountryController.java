@@ -23,7 +23,7 @@ public class CountryController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<Country> getById(@PathVariable int id) {
+    public ResponseEntity<Country> getById(@PathVariable String id) {
         return crudDelegate.getById(id);
     }
 
@@ -43,12 +43,12 @@ public class CountryController {
     }
 
     @PatchMapping("/id/{id}")
-    public ResponseEntity<?> update(@RequestBody Country obj, @RequestParam Integer id) {
+    public ResponseEntity<?> update(@RequestBody Country obj, @RequestParam String id) {
         return crudDelegate.update(obj, id);
     }
 
     @DeleteMapping("/id/{id}")
-    public ResponseEntity<?> delete(@RequestParam Integer id) {
+    public ResponseEntity<?> delete(@RequestParam String id) {
         return crudDelegate.delete(id);
     }
 

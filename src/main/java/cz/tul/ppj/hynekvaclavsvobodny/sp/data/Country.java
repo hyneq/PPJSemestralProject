@@ -7,8 +7,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Country")
-public class Country extends NumberIdDataModel {
+public class Country implements IDataModel<String> {
 
+    @Id
     @Column(nullable = false, unique = true)
     private String code;
 
@@ -22,18 +23,7 @@ public class Country extends NumberIdDataModel {
         super();
     }
 
-    public Country(Integer id) {
-        super(id);
-    }
-
-    public Country(Integer id, String code, String name) {
-        this(id);
-        this.setCode(code);
-        this.setName(name);
-    }
-
     public Country(String code, String name) {
-        this(null, code, name);
         this.setCode(code);
         this.setName(name);
     }
@@ -43,6 +33,16 @@ public class Country extends NumberIdDataModel {
     public void validate() {
         Objects.requireNonNull(getCode(), "'code' must not be null.");
         Objects.requireNonNull(getName(), "'name' must not be null.");
+    }
+
+    @Override
+    public String getId() {
+        return getCode();
+    }
+
+    @Override
+    public void setId(String id) {
+        setCode(id);
     }
 
     public String getCode() {

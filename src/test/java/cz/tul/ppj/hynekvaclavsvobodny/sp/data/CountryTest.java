@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class CountryTest extends NumberIdDataModelTest<Country, CountryTestData> {
+public class CountryTest extends DataModelTest<Country, CountryTestData, String> {
 
     @Override
     public void assertEmpty(Country country) {
