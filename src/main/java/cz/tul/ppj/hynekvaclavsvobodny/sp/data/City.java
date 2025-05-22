@@ -61,12 +61,20 @@ public class City extends NumberIdDataModel {
         this.country = country;
     }
 
-    public Integer getCountryId() {
+    public String getCountryId() {
         if (country == null) {
             return null;
         }
 
         return country.getId();
+    }
+
+    public String getCountryCode() {
+        if (country == null) {
+            return null;
+        }
+
+        return country.getCode();
     }
 
     @Override

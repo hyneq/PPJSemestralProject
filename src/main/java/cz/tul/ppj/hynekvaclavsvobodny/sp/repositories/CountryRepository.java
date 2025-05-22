@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CountryRepository extends NumberIdDataModelRepository<Country> {
+public interface CountryRepository extends DataModelRepository<Country, String> {
 
     Optional<Country> findByCode(String code);
 

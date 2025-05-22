@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 @Component
-public class CountryTestData extends NumberIdDataModelTestData<Country> {
+public class CountryTestData extends DataModelTestData<Country, String> {
 
     @Override
     public Country emptyInstance() {
@@ -42,5 +42,23 @@ public class CountryTestData extends NumberIdDataModelTestData<Country> {
                         new Country(null, "Germany")
                 )
         );
+    }
+
+    @Override
+    public Stream<String> idsValid() {
+        return codesValid();
+    }
+
+    @Override
+    public Stream<String> idsInvalid() {
+        return codesInvalid();
+    }
+
+    private Stream<String> codesValid() {
+        return Stream.of(null, "CZ", "UK", "US", "FR", "DE");
+    }
+
+    private Stream<String> codesInvalid() {
+        return Stream.of("", "cz", "fr", "de", "Czechia", "Cz", "cZ", "ukraIne");
     }
 }

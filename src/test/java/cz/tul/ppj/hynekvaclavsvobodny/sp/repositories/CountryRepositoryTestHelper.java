@@ -5,4 +5,4 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.data.CountryTestData;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CountryRepositoryTestHelper extends NumberIdDataModelRepositoryTestHelper<CountryRepository, Country, CountryTestData> {}
+public class CountryRepositoryTestHelper extends DataModelRepositoryTestHelper<CountryRepository, Country, CountryTestData> {}

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CountryService extends NumberIdDataModelService<CountryRepository, Country> {
+public class CountryService extends DataModelService<CountryRepository, Country, String> {
 
     public CountryService() {
         super("country");
