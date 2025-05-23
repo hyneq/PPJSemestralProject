@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "City")
@@ -92,5 +93,14 @@ public class City extends NumberIdDataModel {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), getName(), getCountry());
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", City.class.getSimpleName() + "[", "]")
+                .add("id=" + getId())
+                .add("name='" + name + "'")
+                .add("country=" + country)
+                .toString();
     }
 }
