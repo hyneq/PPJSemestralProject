@@ -29,15 +29,15 @@ public class CityTestData extends NumberIdDataModelTestData<City> {
 
         return Stream.of(
                 // same as in data.sql
-                new City("Liberec", countries.get("CZ")),
-                new City("Praha", countries.get("CZ")),
-                new City("New York", countries.get("US")),
-                new City("London", countries.get("UK")),
-                new City("Berlin", countries.get("DE")),
+                new City(3071961, "Liberec", countries.get("CZ")),
+                new City(3067696, "Praha", countries.get("CZ")),
+                new City(5128581, "New York", countries.get("US")),
+                new City(2643743, "London", countries.get("UK")),
+                new City(2950159, "Berlin", countries.get("DE")),
 
                 // additional
-                new City("Jablonec nad Nisou", countries.get("CZ")),
-                new City("Los Angeles", countries.get("US"))
+                new City(3074603, "Jablonec nad Nisou", countries.get("CZ")),
+                new City(5368361, "Los Angeles", countries.get("US"))
         );
     }
 
@@ -52,9 +52,17 @@ public class CityTestData extends NumberIdDataModelTestData<City> {
         return Stream.concat(
                 super.objsInvalid(),
                 Stream.of(
+                        new City(),
+                        new City(null),
                         new City(null, null),
+                        new City(null, null, null),
                         new City(null, countries.get("CZ")),
-                        new City("Unknown",  null)
+                        new City(null, null, countries.get("CZ")),
+                        new City("Unknown",  null),
+                        new City(null, "Unknown",  null),
+                        new City(123456),
+                        new City(123456, null, countries.get("CZ")),
+                        new City(123456, null, null)
                 )
         );
     }

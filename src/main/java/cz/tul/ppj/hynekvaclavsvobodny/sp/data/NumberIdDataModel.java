@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+
 @MappedSuperclass
 public abstract class NumberIdDataModel implements IDataModel<Integer> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     public NumberIdDataModel() {}
@@ -29,6 +30,11 @@ public abstract class NumberIdDataModel implements IDataModel<Integer> {
         }
 
         this.id = id;
+    }
+
+    @Override
+    public void validate() {
+        requireNonNull(this.id);
     }
 
     @Override
