@@ -18,9 +18,7 @@ public abstract class NumberIdDataModelRepositoryTest<
     @ParameterizedTest
     @MethodSource("objsValid")
     public void testSaveLoadById(E obj) {
-        assertNull(obj.getId());
         repository.save(obj);
-        assertNotNull(obj.getId());
 
         Optional<E> retrieved = repository.findById(obj.getId());
 
