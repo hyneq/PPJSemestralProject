@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 @Entity
 
@@ -205,6 +206,25 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
     @Override
     public int hashCode() {
         return Objects.hash(id, getTemp(), tempFeelsLike, tempMin, tempMax, getPressure(), getHumidity(), windSpeed, windDirection, windGust, getClouds(), conditionId);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Measurement.class.getSimpleName() + "[", "]")
+                .add("city=" + getCity())
+                .add("datetime=" + getDatetime())
+                .add("temp=" + temp)
+                .add("tempFeelsLike=" + tempFeelsLike)
+                .add("tempMin=" + tempMin)
+                .add("tempMax=" + tempMax)
+                .add("pressure=" + pressure)
+                .add("humidity=" + humidity)
+                .add("windSpeed=" + windSpeed)
+                .add("windDirection=" + windDirection)
+                .add("windGust=" + windGust)
+                .add("clouds=" + clouds)
+                .add("conditionId=" + conditionId)
+                .toString();
     }
 
     @Embeddable
