@@ -72,12 +72,11 @@ public class Country implements IDataModel<String> {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Country country)) return false;
-        if (!super.equals(o)) return false;
         return Objects.equals(getCode(), country.getCode()) && Objects.equals(getName(), country.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getCode(), getName());
+        return Objects.hash(getCode(), getName());
     }
 }
