@@ -2,6 +2,7 @@ package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ public class Country implements IDataModel<String> {
     private String name;
 
     @OneToMany(mappedBy = "country")
-    private Set<City> cities;
+    private Set<City> cities = new HashSet<>();
 
     public Country() {
         super();

@@ -2,7 +2,9 @@ package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "City")
@@ -14,6 +16,9 @@ public class City extends NumberIdDataModel {
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
+
+    @OneToMany(mappedBy = "id.city")
+    private Set<Measurement> measurements = new HashSet<>();
 
     public City() {
         super();
