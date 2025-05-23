@@ -39,7 +39,7 @@ public class CityService extends NumberIdDataModelService<CityRepository, City> 
     }
 
     public void deleteByCountry(Country country) {
-        repository.deleteByCountry(country);
+        repository.deleteAllByCountry(country);
     }
 
     public void deleteByCountryCode(String countryCode) {
