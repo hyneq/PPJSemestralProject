@@ -80,12 +80,11 @@ public class City extends NumberIdDataModel {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof City city)) return false;
-        if (!super.equals(o)) return false;
         return Objects.equals(getName(), city.getName()) && Objects.equals(getCountry(), city.getCountry());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getName(), getCountry());
+        return Objects.hash(getName(), getCountry());
     }
 }
