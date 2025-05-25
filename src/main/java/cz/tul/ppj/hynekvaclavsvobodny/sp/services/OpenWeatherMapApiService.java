@@ -30,7 +30,7 @@ public class OpenWeatherMapApiService {
     @PostConstruct
     private void getWebClient() {
         webClient = WebClient.builder()
-                .baseUrl("https://api.openweathermap.org/data/2.5")
+                .baseUrl(baseUrl)
                 .defaultHeader("x-api-key", apiKey)
                 .build();
     }
