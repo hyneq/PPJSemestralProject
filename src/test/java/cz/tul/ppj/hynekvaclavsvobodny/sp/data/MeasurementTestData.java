@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+
+import static cz.tul.ppj.hynekvaclavsvobodny.sp.data.TestDataUtils.*;
 
 @Component
 public class MeasurementTestData extends DataModelTestData<Measurement, Measurement.MeasurementId> {
@@ -73,6 +76,14 @@ public class MeasurementTestData extends DataModelTestData<Measurement, Measurem
                         new Measurement(cities.get("Los Angeles"), null)
                 )
         );
+    }
+
+    public Map<City, List<Measurement>> objsValidGroupedByCity() {
+        return groupByFixed(cityTestData.getObjsValid(), objsValid(), Measurement::getCity);
+    }
+
+    public Map<City, List<Measurement>> getObjsValidGroupedByCity() {
+        return groupByFixed(cityTestData.getObjsValid(), getObjsValid(), Measurement::getCity);
     }
 
     @Override

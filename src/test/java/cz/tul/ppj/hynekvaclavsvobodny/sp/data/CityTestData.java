@@ -3,8 +3,11 @@ package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+
+import static cz.tul.ppj.hynekvaclavsvobodny.sp.data.TestDataUtils.*;
 
 @Component
 public class CityTestData extends NumberIdDataModelTestData<City> {
@@ -41,8 +44,20 @@ public class CityTestData extends NumberIdDataModelTestData<City> {
         );
     }
 
+    public Map<String, City> objsValidByName() {
+        return mapByKey(objsValid(), City::getName);
+    }
+
     public Map<String, City> getObjsValidByName() {
-        return TestDataUtils.mapByKey(getObjsValid(), City::getName);
+        return mapByKey(getObjsValid(), City::getName);
+    }
+
+    public Map<Country, List<City>> objsValidGroupedByCountry() {
+        return groupByFixed(countryTestData.getObjsValid(), objsValid(), City::getCountry);
+    }
+
+    public Map<Country, List<City>> getObjsValidGroupedByCountry() {
+        return groupByFixed(countryTestData.getObjsValid(), getObjsValid(), City::getCountry);
     }
 
     @Override
@@ -58,8 +73,8 @@ public class CityTestData extends NumberIdDataModelTestData<City> {
                         new City(null, null, null),
                         new City(null, countries.get("CZ")),
                         new City(null, null, countries.get("CZ")),
-                        new City("Unknown",  null),
-                        new City(null, "Unknown",  null),
+                        new City("Unknown", null),
+                        new City(null, "Unknown", null),
                         new City(123456),
                         new City(123456, null, countries.get("CZ")),
                         new City(123456, null, null)
