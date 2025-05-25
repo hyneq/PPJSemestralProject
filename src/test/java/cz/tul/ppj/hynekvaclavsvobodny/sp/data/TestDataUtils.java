@@ -17,14 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestDataUtils {
     private TestDataUtils() {}
 
-    public static <K,V> Map<K,List<V>> mapWithFixedKeys(List<K> keys, Map<K,List<V>> map) {
-        return keys.stream()
-                .collect(Collectors.toMap(
-                        Function.identity(),
-                        key -> map.getOrDefault(key, List.of())
-                ));
-    }
-
     public static <K,V> Map<K, V> mapByKey(
             Stream<V> objs,
             Function<? super V, ? extends K> keyMapper
@@ -56,6 +48,14 @@ public class TestDataUtils {
             Function<? super V, ? extends K> classifier
     ) {
         return groupBy(objs.stream(), classifier);
+    }
+
+    public static <K,V> Map<K,List<V>> mapWithFixedKeys(List<K> keys, Map<K,List<V>> map) {
+        return keys.stream()
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        key -> map.getOrDefault(key, List.of())
+                ));
     }
 
     public static <K,V> Map<K,List<V>> groupByFixed(
