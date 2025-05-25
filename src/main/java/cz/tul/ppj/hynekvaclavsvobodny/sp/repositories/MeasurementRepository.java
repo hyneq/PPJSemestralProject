@@ -29,7 +29,7 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
 
     void deleteAllByIdCity(City city);
 
-    Optional<Measurement> findByIdCityOrderByIdDatetimeDesc(City city);
+    Optional<Measurement> findFirstByIdCityOrderByIdDatetimeDesc(City city);
 
     Iterable<Measurement> findAllByIdCityAndIdDatetimeBetween(City city, Instant from, Instant to);
 
