@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static cz.tul.ppj.hynekvaclavsvobodny.sp.data.TestDataUtils.*;
+
 @Component
 public class CountryTestData extends DataModelTestData<Country, String> {
 
@@ -28,8 +30,12 @@ public class CountryTestData extends DataModelTestData<Country, String> {
         );
     }
 
+    public Map<String,Country> objsValidByCode() {
+        return mapByKey(objsValid(), Country::getCode);
+    }
+
     public Map<String,Country> getObjsValidByCode() {
-        return TestDataUtils.mapByKey(getObjsValid(), Country::getCode);
+        return mapByKey(getObjsValid(), Country::getCode);
     }
 
     @Override
