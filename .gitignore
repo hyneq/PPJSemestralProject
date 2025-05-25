@@ -41,6 +41,8 @@ build/
 local.properties
 local-*.properties
 
-
 ### Development database ###
 develdb/
+
+### Log files ###
+*.log
