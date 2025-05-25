@@ -93,10 +93,4 @@ public class MeasurementTestData extends DataModelTestData<Measurement, Measurem
         return Stream.of((Measurement.MeasurementId) null);
     }
 
-    @Override
-    public void reset() {
-        super.reset();
-
-        cityTestData.reset();
-    }
 }
