@@ -4,6 +4,8 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.data.City;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.Measurement;
 import jakarta.annotation.PostConstruct;
 import org.json.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Service
 public class OpenWeatherMapApiService {
+
+    private static final Logger logger = LoggerFactory.getLogger(OpenWeatherMapApiService.class);
 
     @Value("${openweathermap.base-url}")
     private String baseUrl;
@@ -51,8 +55,8 @@ public class OpenWeatherMapApiService {
                     .bodyToMono(String.class)
                     .block();
         } catch (Exception e) {
-            // TODO logging
-            throw new RuntimeException("OpenWeatherMapAPI request failed");
+            logger.error("OpenWeatherMapAPI request failed.", e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -88,8 +92,8 @@ public class OpenWeatherMapApiService {
                 measurements.add(measurement);
             }
         } catch (Exception e) {
-            // TODO logging
-            throw new RuntimeException("Parsing OpenWeatherMap API response failed");
+            logger.error("Parsing OpenWeatherMap API response failed", e);
+            throw new RuntimeException(e);
         }
 
         return measurements;

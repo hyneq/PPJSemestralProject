@@ -5,12 +5,16 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.IdMismatchException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectAlreadyExistsException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectDoesNotExistException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.DataModelRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.Optional;
 
 public abstract class DataModelService<R extends DataModelRepository<E, ID>, E extends IDataModel<ID>, ID extends Serializable> {
+
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected final String modelName;
 
@@ -42,8 +46,8 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
             repository.save(obj);
             return obj.getId();
         } catch (Exception e) {
-            // TODO log
-            throw new IllegalArgumentException("Object (%s) save failed");
+            logger.error("Object create failed: {}", obj, e);
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -61,8 +65,8 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
         try {
             repository.save(obj);
         } catch (Exception e) {
-            // TODO log
-            throw new IllegalArgumentException("Object (%s) save failed");
+            logger.error("Object save failed: {}", obj, e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -71,11 +75,21 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
     }
 
     public void delete(E obj) {
-        repository.delete(obj);
+        try {
+            repository.delete(obj);
+        } catch (Exception e) {
+            logger.error("Object delete failed: {}", obj, e);
+            throw new RuntimeException(e);
+        }
     }
 
     public void delete(ID id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            logger.error("Object delete by id failed: id={}", id, e);
+            throw new RuntimeException(e);
+        }
     }
 
 }
