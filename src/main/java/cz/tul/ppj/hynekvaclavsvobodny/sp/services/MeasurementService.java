@@ -66,7 +66,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public Optional<Measurement> getLatestMeasurement(City city) {
-        return repository.findByIdCityOrderByIdDatetimeDesc(city);
+        return repository.findFirstByIdCityOrderByIdDatetimeDesc(city);
     }
 
     public Optional<Measurement> getLatestMeasurementByCityId(Integer cityId) {
