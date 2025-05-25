@@ -1,16 +1,25 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleAllExceptions(Exception e, WebRequest request) {
-        // TODO log
+    public ResponseEntity<String> handleAllExceptions(Exception e, HttpServletRequest request) {
+        logger.error("An exception occurred during request [{} {}] with query [{}]",
+                request.getMethod(),
+                request.getRequestURI(),
+                request.getQueryString(),
+                e);
+
         return ResponseEntity.internalServerError().body("Server error, see the log if you have access");
     }
 }
