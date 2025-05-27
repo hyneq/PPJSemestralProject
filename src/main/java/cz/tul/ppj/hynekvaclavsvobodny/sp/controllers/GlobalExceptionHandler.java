@@ -13,13 +13,13 @@ public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleAllExceptions(Exception e, HttpServletRequest request) {
+    public ResponseEntity<String> handleAllExceptions(Exception e, HttpServletRequest request) throws Exception {
         logger.error("An exception occurred during request [{} {}] with query [{}]",
                 request.getMethod(),
                 request.getRequestURI(),
                 request.getQueryString(),
                 e);
 
-        return ResponseEntity.internalServerError().body("Server error, see the log if you have access");
+        throw e;
     }
 }
