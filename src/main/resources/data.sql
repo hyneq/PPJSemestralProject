@@ -7,9 +7,9 @@ VALUES ('CZ', 'Czech Republic'),
        ('DE', 'Germany');
 
 -- Demo cities
-INSERT INTO CITY(name, country_id)
-VALUES ('Liberec', (SELECT id from COUNTRY where code = 'CZ')),
-       ('Praha', (SELECT id from COUNTRY where code = 'CZ')),
-       ('New York', (SELECT id from COUNTRY where code = 'US')),
-       ('London', (SELECT id from COUNTRY where code = 'UK')),
-       ('Berlin', (SELECT id from COUNTRY where code = 'DE'));
+INSERT INTO CITY(id, name, country_id)
+VALUES (3071961, 'Liberec', 'CZ'),
+       (3067696, 'Praha', 'CZ'),
+       (5128581, 'New York', 'US'),
+       (2643743, 'London', 'UK'),
+       (2950159, 'Berlin', 'DE');
