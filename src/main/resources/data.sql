@@ -7,7 +7,7 @@ VALUES ('CZ', 'Czech Republic'),
        ('DE', 'Germany');
 
 -- Demo cities
-INSERT INTO CITY(id, name, country_id)
+INSERT INTO CITY(id, name, country_code)
 VALUES (3071961, 'Liberec', 'CZ'),
        (3067696, 'Praha', 'CZ'),
        (5128581, 'New York', 'US'),

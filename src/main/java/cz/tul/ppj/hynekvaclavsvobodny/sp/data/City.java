@@ -15,7 +15,7 @@ public class City extends NumberIdDataModel {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
+    @JoinColumn(name = "country_code", nullable = false)
     private Country country;
 
     @OneToMany(mappedBy = "id.city")
