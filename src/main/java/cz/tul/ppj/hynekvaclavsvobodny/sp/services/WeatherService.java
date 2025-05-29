@@ -6,6 +6,7 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.CityRepository;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.MeasurementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -23,11 +24,12 @@ public class WeatherService {
     @Autowired
     OpenWeatherMapApiService openWeatherMapApiService;
 
+    @Transactional
     public List<Measurement> updateMeasurements(City city) {
         measurementRepository.deleteAllByIdCity(city);
 
         Instant to = Instant.now();
-        Instant from = to.minus(2, ChronoUnit.WEEKS);
+        Instant from = to.minus(2*7, ChronoUnit.DAYS);
 
         List<Measurement> measurements = openWeatherMapApiService.getMeasurements(city, from, to);
 
@@ -36,6 +38,7 @@ public class WeatherService {
         return measurements;
     }
 
+    @Transactional
     public List<Measurement> updateMeasurements(int cityId) {
         return updateMeasurements(cityRepository.getById(cityId));
     }
