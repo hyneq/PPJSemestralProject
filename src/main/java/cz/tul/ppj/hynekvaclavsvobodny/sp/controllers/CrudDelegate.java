@@ -1,12 +1,9 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.controllers;
 
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.IDataModel;
-import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectAlreadyExistsException;
-import cz.tul.ppj.hynekvaclavsvobodny.sp.exceptions.ObjectDoesNotExistException;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.DataModelRepository;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.services.DataModelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -26,20 +23,12 @@ public class CrudDelegate<S extends DataModelService<R,E,ID>, R extends DataMode
     }
 
     public ResponseEntity<?> create(E obj) {
-        try {
-            return ResponseEntity.ok(service.create(obj));
-        } catch (ObjectAlreadyExistsException e) {
-            return new ResponseEntity<>("Object already exists", HttpStatus.CONFLICT);
-        }
+        return ResponseEntity.ok(service.create(obj));
     }
 
     public ResponseEntity<?> update(E obj, ID id) {
-        try {
-            service.update(obj, id);
-            return ResponseEntity.ok(obj.getId());
-        } catch (ObjectDoesNotExistException e) {
-            return ResponseEntity.notFound().build();
-        }
+        service.update(obj, id);
+        return ResponseEntity.ok(obj.getId());
     }
 
     public ResponseEntity<?> delete(E obj) {
