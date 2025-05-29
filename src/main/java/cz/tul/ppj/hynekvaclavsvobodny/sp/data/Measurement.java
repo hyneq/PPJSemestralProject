@@ -1,5 +1,6 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.StringJoiner;
 public class Measurement implements IDataModel<Measurement.MeasurementId> {
 
     @EmbeddedId
+    @JsonIgnore
     private MeasurementId id;
 
     private Double temp;
@@ -71,6 +73,7 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
         id.setCity(city);
     }
 
+    @JsonIgnore
     public Integer getCityId() {
         return id.getCityId();
     }
