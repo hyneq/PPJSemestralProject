@@ -41,6 +41,7 @@ public class CityService extends NumberIdDataModelService<CityRepository, City> 
     public void deleteByCountryCode(String countryCode) {
         countryService.getByCode(countryCode).ifPresent(this::deleteByCountry);
     }
+
     public void deleteByCountryName(String countryName) {
         countryService.getByName(countryName).ifPresent(this::deleteByCountry);
     }

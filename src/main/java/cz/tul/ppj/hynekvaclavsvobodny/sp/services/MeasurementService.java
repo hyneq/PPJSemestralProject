@@ -60,6 +60,10 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     public void deleteByCity(City city) {
         repository.deleteAllByIdCity(city);
     }
+    
+    public void deleteByCityId(Integer cityId) {
+        cityService.getById(cityId).ifPresent(this::deleteByCity);
+    }
 
     public void deleteByCityName(String cityName) {
         cityService.getByName(cityName).ifPresent(this::deleteByCity);
