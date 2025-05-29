@@ -109,7 +109,7 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
 
     public Iterable<Measurement> getLastWeekMeasurements(City city) {
         Instant now = Instant.now();
-        Instant weekAgo = now.minus(1, ChronoUnit.WEEKS);
+        Instant weekAgo = now.minus(7, ChronoUnit.DAYS);
         return repository.findAllByIdCityAndIdDatetimeBetween(city, weekAgo, now);
     }
 
@@ -135,8 +135,8 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
 
     public Iterable<Measurement> getLastTwoWeeksMeasurements(City city) {
         Instant now = Instant.now();
-        Instant weekAgo = now.minus(2, ChronoUnit.WEEKS);
-        return repository.findAllByIdCityAndIdDatetimeBetween(city, weekAgo, now);
+        Instant twoWeeksAgo = now.minus(2*7, ChronoUnit.DAYS);
+        return repository.findAllByIdCityAndIdDatetimeBetween(city, twoWeeksAgo, now);
     }
 
     public Optional<Iterable<Measurement>> getLastTwoWeeksMeasurementsByCityId(Integer cityId) {
