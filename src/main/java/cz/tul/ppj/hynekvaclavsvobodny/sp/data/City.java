@@ -1,5 +1,6 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -19,6 +20,7 @@ public class City extends NumberIdDataModel {
     private Country country;
 
     @OneToMany(mappedBy = "id.city")
+    @JsonIgnore
     private Set<Measurement> measurements = new HashSet<>();
 
     public City() {
@@ -67,6 +69,7 @@ public class City extends NumberIdDataModel {
         this.country = country;
     }
 
+    @JsonIgnore
     public String getCountryId() {
         if (country == null) {
             return null;
@@ -75,6 +78,7 @@ public class City extends NumberIdDataModel {
         return country.getId();
     }
 
+    @JsonIgnore
     public String getCountryCode() {
         if (country == null) {
             return null;
