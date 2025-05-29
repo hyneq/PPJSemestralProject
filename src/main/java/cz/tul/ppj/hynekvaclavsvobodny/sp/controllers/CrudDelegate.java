@@ -5,7 +5,6 @@ import cz.tul.ppj.hynekvaclavsvobodny.sp.repositories.DataModelRepository;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.services.DataModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
@@ -29,6 +28,11 @@ public class CrudDelegate<S extends DataModelService<R,E,ID>, R extends DataMode
     public ResponseEntity<?> update(E obj, ID id) {
         service.update(obj, id);
         return ResponseEntity.ok(obj.getId());
+    }
+
+    public ResponseEntity<?> deleteAll() {
+        service.deleteAll();
+        return ResponseEntity.ok().build();
     }
 
     public ResponseEntity<?> delete(E obj) {

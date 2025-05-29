@@ -46,9 +46,26 @@ public class CountryController {
         return crudDelegate.update(obj, id);
     }
 
+    @DeleteMapping("/all")
+    public ResponseEntity<?> deleteAll() {
+        return crudDelegate.deleteAll();
+    }
+
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) {
         return crudDelegate.delete(id);
+    }
+
+    @DeleteMapping("/code/{code}")
+    public ResponseEntity<?> deleteByCode(@PathVariable String code) {
+        service.deleteByCode(code);
+        return ResponseEntity.ok(code);
+    }
+
+    @DeleteMapping("/name/{name}")
+    public ResponseEntity<?> deleteByName(@PathVariable String name) {
+        service.deleteByName(name);
+        return ResponseEntity.ok(name);
     }
 
 }

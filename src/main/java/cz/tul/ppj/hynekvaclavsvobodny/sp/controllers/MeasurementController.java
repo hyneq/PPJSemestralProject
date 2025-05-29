@@ -24,6 +24,16 @@ public class MeasurementController {
         return crudDelegate.getAll();
     }
 
+    @GetMapping("/city_id/{cityId}")
+    public ResponseEntity<Iterable<Measurement>> getByCityId(@PathVariable Integer cityId) {
+        return ResponseEntity.of(service.getByCityId(cityId));
+    }
+
+    @GetMapping("/city_name/{cityName}")
+    public ResponseEntity<Iterable<Measurement>> getByCityName(@PathVariable String cityName) {
+        return ResponseEntity.of(service.getByCityName(cityName));
+    }
+
     @GetMapping("/id/{cityId}/{datetime}")
     public ResponseEntity<Measurement> getById(@PathVariable int cityId, @PathVariable Instant datetime) {
         return ResponseEntity.of(service.getById(cityId, datetime));
@@ -40,9 +50,26 @@ public class MeasurementController {
         return ResponseEntity.ok(obj.getId());
     }
 
+    @DeleteMapping("/all")
+    public ResponseEntity<?> deleteAll() {
+        return crudDelegate.deleteAll();
+    }
+
     @DeleteMapping("/id/{cityId}/{datetime}")
     public ResponseEntity<?> delete(@PathVariable Integer cityId, @PathVariable Instant datetime) {
         service.deleteById(cityId, datetime);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/city_id/{cityId}")
+    public ResponseEntity<?> deleteByCityId(@PathVariable Integer cityId) {
+        service.deleteByCityId(cityId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/city_id/{cityName}")
+    public ResponseEntity<?> deleteByCityName(@PathVariable String cityName) {
+        service.deleteByCityName(cityName);
         return ResponseEntity.ok().build();
     }
 
