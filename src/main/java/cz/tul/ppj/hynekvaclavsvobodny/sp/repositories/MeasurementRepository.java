@@ -13,6 +13,8 @@ import java.util.Optional;
 @Repository
 public interface MeasurementRepository extends DataModelRepository<Measurement, Measurement.MeasurementId> {
 
+    Iterable<Measurement> findAllByIdCity(City city);
+
     default Optional<Measurement> findById(City city, Instant datetime) {
         return findById(new Measurement.MeasurementId(city, datetime));
     }
@@ -21,13 +23,11 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
         return getById(new Measurement.MeasurementId(city, datetime));
     }
 
+    void deleteAllByIdCity(City city);
+
     default void deleteById(City city, Instant datetime) {
         deleteById(new Measurement.MeasurementId(city, datetime));
     }
-
-    Iterable<Measurement> findAllByIdCity(City city);
-
-    void deleteAllByIdCity(City city);
 
     Optional<Measurement> findFirstByIdCityOrderByIdDatetimeDesc(City city);
 
