@@ -18,8 +18,13 @@ public class WeatherController {
     @Autowired
     WeatherService service;
 
-    @PostMapping("/update/{cityId}")
+    @PostMapping("/update/city_id/{cityId}")
     public ResponseEntity<List<Measurement>> updateMeasurements(@PathVariable Integer cityId) {
         return ResponseEntity.ofNullable(service.updateMeasurements(cityId));
+    }
+
+    @PostMapping("/update/city_name/{cityName}")
+    public ResponseEntity<List<Measurement>> updateMeasurements(@PathVariable String cityName) {
+        return ResponseEntity.ofNullable(service.updateMeasurements(cityName));
     }
 }
