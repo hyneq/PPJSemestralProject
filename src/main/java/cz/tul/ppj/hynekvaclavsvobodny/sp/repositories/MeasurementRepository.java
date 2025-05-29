@@ -35,30 +35,15 @@ public interface MeasurementRepository extends DataModelRepository<Measurement, 
 
     @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
             "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
-            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)) " +
+            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), " +
+            "AVG(CASE WHEN m.windGust = m.windGust THEN m.windGust ELSE NULL END)) " +
             "FROM Measurement m " +
             "WHERE m.id.city = :city " +
-            "GROUP BY CAST(m.id.datetime AS date) " +
-            "ORDER BY CAST(m.id.datetime AS date) DESC")
-    Optional<MeasurementAggregation> findDailyAverage(@Param("city") City city);
+            "AND m.id.datetime BETWEEN :from AND :to")
+    Optional<MeasurementAggregation> findAverage(
+            @Param("city") City city,
+            @Param("from") Instant from,
+            @Param("to") Instant to
+    );
 
-    @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
-            "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
-            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)), " +
-            "FUNCTION('WEEK', m.id.datetime) as week " +
-            "FROM Measurement m " +
-            "WHERE m.id.city = :city " +
-            "GROUP BY FUNCTION('YEAR', m.id.datetime), week " +
-            "ORDER BY FUNCTION('YEAR', m.id.datetime) DESC, week DESC ")
-    Optional<MeasurementAggregation> findWeeklyAverage(@Param("city") City city);
-
-    @Query("SELECT new cz.tul.ppj.hynekvaclavsvobodny.sp.dto.MeasurementAggregation(" +
-            "AVG(m.temp), AVG(m.tempFeelsLike), AVG(m.tempMin), AVG(m.tempMax), " +
-            "AVG(m.pressure), AVG(m.humidity), AVG(m.windSpeed), AVG(m.windGust)), " +
-            "FUNCTION('FLOOR', EXTRACT(WEEK FROM m.id.datetime) / 2) as week_group " +
-            "FROM Measurement m " +
-            "WHERE m.id.city = :city " +
-            "GROUP BY FUNCTION('YEAR', m.id.datetime), week_group " +
-            "ORDER BY FUNCTION('YEAR', m.id.datetime) DESC, week_group DESC")
-    Optional<MeasurementAggregation> findTwoWeeksAverage(@Param("city") City city);
 }

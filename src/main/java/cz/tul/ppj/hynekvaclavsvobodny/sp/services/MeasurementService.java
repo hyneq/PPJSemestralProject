@@ -69,6 +69,32 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
         cityService.getByName(cityName).ifPresent(this::deleteByCity);
     }
 
+    private record TimeRange(Instant start, Instant end) {}
+
+    private TimeRange getLastDayRange() {
+        Instant now = Instant.now();
+        return new TimeRange(
+                now.minus(1, ChronoUnit.DAYS),
+                now
+        );
+    }
+
+    private TimeRange getLastWeekRange() {
+        Instant now = Instant.now();
+        return new TimeRange(
+                now.minus(7, ChronoUnit.DAYS),
+                now
+        );
+    }
+
+    private TimeRange getLastTwoWeeksRange() {
+        Instant now = Instant.now();
+        return new TimeRange(
+                now.minus(2*7, ChronoUnit.DAYS),
+                now
+        );
+    }
+
     public Optional<Measurement> getLatestMeasurement(City city) {
         return repository.findFirstByIdCityOrderByIdDatetimeDesc(city);
     }
@@ -82,9 +108,8 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public Iterable<Measurement> getLastDayMeasurements(City city) {
-        Instant now = Instant.now();
-        Instant dayAgo = now.minus(1, ChronoUnit.DAYS);
-        return repository.findAllByIdCityAndIdDatetimeBetween(city, dayAgo, now);
+        TimeRange range = getLastDayRange();
+        return repository.findAllByIdCityAndIdDatetimeBetween(city, range.start(), range.end());
     }
 
     public Optional<Iterable<Measurement>> getLastDayMeasurementsByCityId(Integer cityId) {
@@ -96,7 +121,8 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public Optional<MeasurementAggregation> getLastDayAverage(City city) {
-        return repository.findDailyAverage(city);
+        TimeRange range = getLastDayRange();
+        return repository.findAverage(city, range.start(), range.end());
     }
 
     public Optional<MeasurementAggregation> getLastDayAverageByCityId(Integer cityId) {
@@ -108,9 +134,8 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public Iterable<Measurement> getLastWeekMeasurements(City city) {
-        Instant now = Instant.now();
-        Instant weekAgo = now.minus(7, ChronoUnit.DAYS);
-        return repository.findAllByIdCityAndIdDatetimeBetween(city, weekAgo, now);
+        TimeRange range = getLastWeekRange();
+        return repository.findAllByIdCityAndIdDatetimeBetween(city, range.start(), range.end());
     }
 
     public Optional<Iterable<Measurement>> getLastWeekMeasurementsByCityId(Integer cityId) {
@@ -122,7 +147,8 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public Optional<MeasurementAggregation> getLastWeekAverage(City city) {
-        return repository.findWeeklyAverage(city);
+        TimeRange range = getLastWeekRange();
+        return repository.findAverage(city, range.start(), range.end());
     }
 
     public Optional<MeasurementAggregation> getLastWeekAverageByCityId(Integer cityId) {
@@ -134,9 +160,8 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public Iterable<Measurement> getLastTwoWeeksMeasurements(City city) {
-        Instant now = Instant.now();
-        Instant twoWeeksAgo = now.minus(2*7, ChronoUnit.DAYS);
-        return repository.findAllByIdCityAndIdDatetimeBetween(city, twoWeeksAgo, now);
+        TimeRange range = getLastTwoWeeksRange();
+        return repository.findAllByIdCityAndIdDatetimeBetween(city, range.start(), range.end());
     }
 
     public Optional<Iterable<Measurement>> getLastTwoWeeksMeasurementsByCityId(Integer cityId) {
@@ -148,7 +173,8 @@ public class MeasurementService extends DataModelService<MeasurementRepository, 
     }
 
     public Optional<MeasurementAggregation> getLastTwoWeeksAverage(City city) {
-        return repository.findTwoWeeksAverage(city);
+        TimeRange range = getLastTwoWeeksRange();
+        return repository.findAverage(city, range.start(), range.end());
     }
 
     public Optional<MeasurementAggregation> getLastTwoWeeksAverageByCityId(Integer cityId) {
