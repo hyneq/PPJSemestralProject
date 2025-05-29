@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class WeatherService {
@@ -28,10 +30,14 @@ public class WeatherService {
     public List<Measurement> updateMeasurements(City city) {
         measurementRepository.deleteAllByIdCity(city);
 
-        Instant to = Instant.now();
-        Instant from = to.minus(2*7, ChronoUnit.DAYS);
+        Instant now = Instant.now();
+        Instant weekAgo = now.minus(7, ChronoUnit.DAYS);
+        Instant twoWeeksAgo = weekAgo.minus(7, ChronoUnit.DAYS);
 
-        List<Measurement> measurements = openWeatherMapApiService.getMeasurements(city, from, to);
+        List<Measurement> measurements = Stream.concat(
+                openWeatherMapApiService.getMeasurements(city, twoWeeksAgo, weekAgo).stream(),
+                openWeatherMapApiService.getMeasurements(city, weekAgo, now).stream()
+        ).collect(Collectors.toList());
 
         measurementRepository.saveAll(measurements);
 
