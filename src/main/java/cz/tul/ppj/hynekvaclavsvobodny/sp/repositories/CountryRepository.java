@@ -16,8 +16,8 @@ public interface CountryRepository extends DataModelRepository<Country, String> 
 
     Country getByName(String name);
 
-    void deleteByName(String name);
-
     void deleteByCode(String code);
+
+    void deleteByName(String name);
 
 }
