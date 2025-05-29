@@ -168,7 +168,7 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
                 () -> obj.setWindGust(windGust));
     }
 
-    private static final List<Integer> windDirectionsValid = Arrays.asList(0, 45, 90, 135, 180, 225, 270, 315);
+    private static final List<Integer> windDirectionsValid = Arrays.asList(0, 45, 90, 135, 180, 225, 270, 315, 360);
 
     @ParameterizedTest
     @FieldSource("windDirectionsValid")
@@ -178,7 +178,7 @@ public class MeasurementTest extends DataModelTest<Measurement, MeasurementTestD
         assertEquals(windDirection, obj.getWindDirection());
     }
 
-    private static final List<Integer> windDirectionsInvalid = Arrays.asList(360, -1, -90, -270, -360);
+    private static final List<Integer> windDirectionsInvalid = Arrays.asList(361, -1, -90, -270, -360);
 
     @ParameterizedTest
     @FieldSource("windDirectionsInvalid")
