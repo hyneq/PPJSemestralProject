@@ -49,4 +49,9 @@ public class WeatherService {
         return updateMeasurements(cityRepository.getById(cityId));
     }
 
+    @Transactional
+    public List<Measurement> updateMeasurements(String cityName) {
+        return updateMeasurements(cityRepository.getByName(cityName));
+    }
+
 }
