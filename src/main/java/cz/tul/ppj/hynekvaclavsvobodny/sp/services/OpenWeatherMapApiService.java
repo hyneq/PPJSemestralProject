@@ -76,6 +76,7 @@ public class OpenWeatherMapApiService {
 
                 JSONObject main = jsonMeasurement.getJSONObject("main");
                 measurement.setTemp(main.optDoubleObject("temp"));
+                measurement.setTempFeelsLike(main.optDoubleObject("feels_like"));
                 measurement.setTempMin(main.optDoubleObject("temp_min"));
                 measurement.setTempMax(main.optDoubleObject("temp_max"));
                 measurement.setPressure(main.optIntegerObject("pressure"));
@@ -85,6 +86,9 @@ public class OpenWeatherMapApiService {
                 measurement.setWindSpeed(wind.optDoubleObject("speed"));
                 measurement.setWindDirection(wind.optIntegerObject("deg"));
                 measurement.setWindGust(wind.optDoubleObject("gust"));
+
+                JSONObject clouds = jsonMeasurement.getJSONObject("clouds");
+                measurement.setClouds(clouds.optIntegerObject("all"));
 
                 JSONObject weather = jsonMeasurement.getJSONArray("weather").getJSONObject(0);
                 measurement.setConditionId(weather.getInt("id"));
