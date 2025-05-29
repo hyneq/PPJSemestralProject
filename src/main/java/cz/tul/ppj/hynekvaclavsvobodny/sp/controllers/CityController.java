@@ -26,7 +26,7 @@ public class CityController {
         return crudDelegate.getById(id);
     }
 
-    @GetMapping("/country_code/{code}")
+    @GetMapping("/country_code/{countryCode}")
     public ResponseEntity<Iterable<City>> getByCountryCode(@PathVariable String countryCode) {
         return ResponseEntity.of(service.getByCountryCode(countryCode));
     }
@@ -51,8 +51,32 @@ public class CityController {
         return crudDelegate.update(obj, id);
     }
 
+    @DeleteMapping("/all")
+    public ResponseEntity<?> deleteAll() {
+        return crudDelegate.deleteAll();
+    }
+
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         return crudDelegate.delete(id);
     }
+
+    @DeleteMapping("/country_code/{countryCode}")
+    public ResponseEntity<?> deleteByCountryCode(@PathVariable String countryCode) {
+        service.deleteByCountryCode(countryCode);
+        return ResponseEntity.ok(countryCode);
+    }
+
+    @DeleteMapping("/country_name/{countryName}")
+    public ResponseEntity<?> deleteByCountryName(@PathVariable String countryName) {
+        service.deleteByCountryName(countryName);
+        return ResponseEntity.ok(countryName);
+    }
+
+    @DeleteMapping("/name/{name}")
+    public ResponseEntity<?> deleteByName(@PathVariable String name) {
+        service.deleteByName(name);
+        return ResponseEntity.ok(name);
+    }
+
 }
