@@ -173,8 +173,8 @@ public class Measurement implements IDataModel<Measurement.MeasurementId> {
     }
 
     public void setWindDirection(Integer windDirection) {
-        if (windDirection != null && (windDirection < 0 || windDirection >= 360)) {
-            throw new IllegalArgumentException("The argument 'wind_direction' must be between 0 and 360 (exclusive)");
+        if (windDirection != null && (windDirection < 0 || windDirection > 360)) {
+            throw new IllegalArgumentException("The argument 'wind_direction' must be between 0 and 360 (inclusive)");
         }
 
         this.windDirection = windDirection;
