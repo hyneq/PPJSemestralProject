@@ -74,6 +74,14 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
         update(obj, null);
     }
 
+    public void deleteAll() {
+        try {
+            repository.deleteAll();
+        } catch (Exception e) {
+            logger.error("Deleting all failed");
+        }
+    }
+
     public void delete(E obj) {
         try {
             repository.delete(obj);
