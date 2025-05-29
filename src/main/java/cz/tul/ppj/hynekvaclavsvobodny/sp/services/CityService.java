@@ -34,10 +34,6 @@ public class CityService extends NumberIdDataModelService<CityRepository, City> 
         return countryService.getByName(countryName).map(this::getByCountry);
     }
 
-    public void deleteByName(String name) {
-        repository.deleteByName(name);
-    }
-
     public void deleteByCountry(Country country) {
         repository.deleteAllByCountry(country);
     }
@@ -48,4 +44,9 @@ public class CityService extends NumberIdDataModelService<CityRepository, City> 
     public void deleteByCountryName(String countryName) {
         countryService.getByName(countryName).ifPresent(this::deleteByCountry);
     }
+
+    public void deleteByName(String name) {
+        repository.deleteByName(name);
+    }
+
 }
