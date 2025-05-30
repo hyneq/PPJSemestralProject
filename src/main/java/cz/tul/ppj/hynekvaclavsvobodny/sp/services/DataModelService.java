@@ -54,7 +54,7 @@ public abstract class DataModelService<R extends DataModelRepository<E, ID>, E e
     public void update(E obj, ID id) {
         if (obj.getId() == null) {
             obj.setId(id);
-        } else if (!obj.getId().equals(id)) {
+        } else if (id != null && !obj.getId().equals(id)) {
             throw new IdMismatchException(obj);
         }
 
