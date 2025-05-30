@@ -1,11 +1,13 @@
 package cz.tul.ppj.hynekvaclavsvobodny.sp.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.City;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.Measurement;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.data.MeasurementTestData;
 import cz.tul.ppj.hynekvaclavsvobodny.sp.services.MeasurementService;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,6 +36,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class MeasurementControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    @BeforeAll
+    public void setup() {
+        objectMapper.registerModule(new JavaTimeModule());
+    }
 
     @Autowired
     private MockMvc mockMvc;
